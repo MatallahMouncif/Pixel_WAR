@@ -1,0 +1,23 @@
+{
+  "name": "pixel_war",
+  "version": "0.0.1",
+  "description": "M2 MIAGE: Server Side Javascript project",
+  "main": "index.js",
+  "author": "",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start:frontend": "npm run start -w frontend",
+    "start:backend": "npm run start -w backend"
+  },
+  "workspaces": [
+    "./packages/*"
+  ],
+  "devDependencies": {
+    "eslint": "^8.20.0",
+    "eslint-config-53js": "^2.0.0",
+    "eslint-plugin-import": "2.26.0",
+    "eslint-plugin-react": "7.31.10",
+    "eslint-plugin-react-hooks": "^4.1.2"
+  }
+}
