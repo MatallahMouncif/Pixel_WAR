@@ -1,0 +1,17 @@
+.boardEditor{
+    height: 100%;
+    width: 100%;
+    margin-top: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+h2 {
+    text-align: center;
+}
+#boardCanvas{
+}
+#grid{
+    position: absolute;    
+    pointer-events: none;
+}
