@@ -1,56 +1,72 @@
-import React, { Component } from 'react';
-import '../styles/auth.css';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 
-export default class Login extends Component {
-	render() {
-		return (
-			<div className="auth-wrapper">
-				<div className="auth-inner">
-					<form>
-						<h3 className="text-secondary">Sign In</h3>
-						<div className="mb-3">
-							<label>Email address</label>
-							<input
-								type="email"
-								className="form-control"
-								placeholder="Enter email"
-							/>
-						</div>
-						<div className="mb-3">
-							<label>Password</label>
-							<input
-								type="password"
-								className="form-control"
-								placeholder="Enter password"
-							/>
-						</div>
-						<div className="mb-3">
-							<div className="custom-control custom-checkbox">
-								<input
-									type="checkbox"
-									className="custom-control-input"
-									id="customCheck1"
-								/>
-								<label
-									className="text-secondary"
-									id="r"
-									htmlFor="customCheck1"
-								>
-									Remember me
-								</label>
-							</div>
-						</div>
-						<div className="d-grid">
-							<button type="submit" className="btn btn-primary">
-								Submit
-							</button>
-						</div>
-						<p className="forgot-password text-right">
-							Forgot <a href="#">password?</a>
-						</p>
-					</form>
-				</div>
-			</div>
-		);
-	}
+import '../styles/Login.css';
+
+async function loginUser(credentials) {
+	// TODO: replace with backend call
+	return fetch('http://localhost:3003/login', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(credentials),
+	})
+		.then((data) => data.json());
 }
+
+export default function Login({ setToken }) {
+	const [email, setEmail] = useState();
+	const [password, setPassword] = useState();
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+
+		const token = await loginUser({
+			email,
+			password,
+		});
+
+		setToken(token);
+	};
+
+	return (
+		<div className="login-wrapper">
+			<div className="login-inner">
+				<h2>Log In</h2>
+				<form onSubmit={handleSubmit}>
+					<div>
+						<label className="form-label" htmlFor="email">Email</label>
+						<input
+							id="email"
+							className="form-control"
+							name="email"
+							onChange={(e) => setEmail(e.target.value)}
+							type="email"
+							placeholder="Enter email"
+							required
+						/>
+					</div>
+					<div>
+						<label className="form-label" htmlFor="password">Password</label>
+						<input
+							id="password"
+							className="form-control"
+							name="password"
+							onChange={(e) => setPassword(e.target.value)}
+							type="password"
+							placeholder="Enter password"
+							required
+						/>
+					</div>
+
+					<a href="/"><button type="submit" className="btn btn-primary btn-block mb-4">Sign in</button></a>
+				</form>
+			</div>
+		</div>
+	);
+}
+
+Login.propTypes = {
+	setToken: PropTypes.func.isRequired,
+};

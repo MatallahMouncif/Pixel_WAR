@@ -1,31 +1,36 @@
+const bodyparser = require('body-parser');
+const cors = require('cors');
 const express = require('express');
 
-const cors = require('cors');
-
-const userBACKEND = require('./routes/user');
+const login = require('./routes/login');
+const users = require('./routes/users');
 
 const app = express();
 const PORT = 3003;
 
+app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({ extended: true }));
 app.use(cors());
 
 app.get('/', (req, res) => {
-	res.status(404).send('notFound');
+	res.status(404).send('PixelWar Backend');
 });
 
-app.use('/user', userBACKEND);
+app.use('/login', login);
+app.use('/users', users);
 
-// eslint-disable-next-line no-unused-vars
-app.use((err, req, res, next) => {
+app.use((req, res, next, err) => {
 	console.error(err.stack);
+
 	if (res.headersSent) {
 		return next(err);
 	}
+
 	return res.status(500).send('Something broke!');
 });
 
 const server = app.listen(PORT, () => {
 	const { port } = server.address();
-	// eslint-disable-next-line no-console
-	console.log(`Application started. Visit http://localhost:${port}`);
+
+	console.log(`PixelWar Backend listening on http://localhost:${port}`);
 });
