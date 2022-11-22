@@ -25,6 +25,14 @@ export default class Signup extends Component {
 							/>
 						</div>
 						<div className="mb-3">
+							<label>Pseudo</label>
+							<input
+								type="text"
+								className="form-control"
+								placeholder="Pseudo"
+							/>
+						</div>
+						<div className="mb-3">
 							<label>Email address</label>
 							<input
 								type="email"
