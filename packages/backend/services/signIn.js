@@ -1,6 +1,6 @@
 const fs = require('node:fs');
 
-const isSigned = (email, password) => new Promise((resolve, reject) => {
+const getToken = (email, password) => new Promise((resolve, reject) => {
 	fs.readFile(`${__dirname}/../data/users.json`, 'utf8', (err, data) => {
 		if (err) {
 			reject(new Error('Unable to get users'));
@@ -15,15 +15,15 @@ const isSigned = (email, password) => new Promise((resolve, reject) => {
 				const userPassword = user.password;
 
 				if (userEmail === email && userPassword === password) {
-					resolve(JSON.parse('{"isSigned": "true"}'));
+					resolve(JSON.parse('{"token": "token"}'));
 				}
 			});
 
-			resolve(JSON.parse('{"isSigned": "false"}'));
+			resolve(JSON.parse('{"token": "token"}'));
 		} catch (e) {
 			reject(new Error(e));
 		}
 	});
 });
 
-module.exports.isSigned = isSigned;
+module.exports.getToken = getToken;

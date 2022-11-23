@@ -14,19 +14,19 @@ async function signInUser(credentials) {
 		.then((data) => data.json());
 }
 
-export default function SignIn({ setIsSigned }) {
+export default function SignIn({ setToken }) {
 	const [email, setEmail] = useState();
 	const [password, setPassword] = useState();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		const isSigned = await signInUser({
+		const token = await signInUser({
 			email,
 			password,
 		});
 
-		setIsSigned(isSigned);
+		setToken(token);
 	};
 
 	return (
@@ -58,8 +58,14 @@ export default function SignIn({ setIsSigned }) {
 							required
 						/>
 					</div>
+					<br />
+					<div>
+						<a href="/"><button className="btn btn-primary btn-block mb-4" type="submit">Sign in</button></a>
+					</div>
 
-					<a href="/"><button type="submit" className="btn btn-primary btn-block mb-4">Sign in</button></a>
+					<div className="text-center">
+						<p>Not a member? <a href="/sign-up">Sign up</a></p>
+					</div>
 				</form>
 			</div>
 		</div>
@@ -67,5 +73,5 @@ export default function SignIn({ setIsSigned }) {
 }
 
 SignIn.propTypes = {
-	setIsSigned: PropsTypes.func.isRequired,
+	setToken: PropsTypes.func.isRequired,
 };

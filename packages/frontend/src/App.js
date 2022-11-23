@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
 	BrowserRouter,
 	Route,
@@ -8,15 +8,17 @@ import {
 import './styles/App.css';
 
 import SignIn from './components/SignIn';
-import Signup from './components/Signup';
+import SignUp from './components/SignUp';
 import HomeNavBar from './components/HomeNavBar';
 import BoardEditor from './components/BoardEditor';
 
-function App() {
-	const [isSigned, setIsSigned] = useState();
+import useToken from './components/useToken';
 
-	if (!isSigned) {
-		return <SignIn setIsSigned={setIsSigned} />;
+function App() {
+	const { token, setToken } = useToken();
+
+	if (!token) {
+		return <SignIn setToken={setToken} />;
 	}
 
 	return (
@@ -26,7 +28,7 @@ function App() {
 				<Routes>
 					<Route path="/" />
 					<Route path="/sign-in" element={<SignIn />} />
-					<Route path="/sign-up" element={<Signup />} />
+					<Route path="/sign-up" element={<SignUp />} />
 					<Route path="/pixelBoards/:id" element={<BoardEditor />} />
 				</Routes>
 			</BrowserRouter>

@@ -2,10 +2,10 @@ const express = require('express');
 
 const router = express.Router();
 
-const signInService = require('../services/signIn');
+const signUpService = require('../services/signUp');
 
 router.use((req, res, next) => {
-	console.log(`SIGNIN SERVICE - ${req.method} request for ${req.url}`);
+	console.log(`SIGNUP SERVICE - ${req.method} request for ${req.url}`);
 
 	next();
 });
@@ -13,12 +13,15 @@ router.use((req, res, next) => {
 router.post('/',
 	async (req, res) => {
 		try {
+			const { pseudo } = req.body;
 			const { email } = req.body;
 			const { password } = req.body;
 
-			const token = await signInService.getToken(email, password);
+			console.log(pseudo, email, password);
 
-			return res.json(token);
+			await signUpService.signUp(pseudo, email, password);
+
+			return res.status(201).json({ message: 'User created' });
 		} catch (err) {
 			return res.status(500).json({ error: err.message });
 		}

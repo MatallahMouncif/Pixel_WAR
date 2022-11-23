@@ -27,7 +27,7 @@ function HomeNavBar() {
 						</NavDropdown>
 					</Nav>
 					<Nav.Link href="/sign-in">Sign in</Nav.Link>
-					<Nav.Link href="/sign-up">SignUp</Nav.Link>
+					<Nav.Link href="/sign-up">Sign up</Nav.Link>
 				</Navbar.Collapse>
 			</Container>
 		</Navbar>

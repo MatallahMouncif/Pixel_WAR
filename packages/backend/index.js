@@ -3,6 +3,7 @@ const cors = require('cors');
 const express = require('express');
 
 const signIn = require('./routes/signIn');
+const signUp = require('./routes/signUp');
 const users = require('./routes/users');
 
 const app = express();
@@ -17,6 +18,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/sign-in', signIn);
+app.use('/sign-up', signUp);
 app.use('/users', users);
 
 app.use((req, res, next, err) => {
