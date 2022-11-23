@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
 	BrowserRouter,
 	Route,
@@ -7,30 +7,32 @@ import {
 
 import './styles/App.css';
 
-import Login from './components/Login';
-import Signup from './components/Signup';
+import SignIn from './components/SignIn';
+import SignUp from './components/SignUp';
 import HomeNavBar from './components/HomeNavBar';
 import BoardEditor from './components/BoardEditor';
 
+import useToken from './components/useToken';
+
 function App() {
-	const [token, setToken] = useState();
+	const { token, setToken } = useToken();
 
 	if (!token) {
-		return <Login setToken={setToken} />;
+		return <SignIn setToken={setToken} />;
 	}
 
 	return (
-		<>
+		<div className="wrapper">
 			<HomeNavBar />
 			<BrowserRouter>
 				<Routes>
 					<Route path="/" />
-					<Route path="/login" element={<Login />} />
-					<Route path="/sign-up" element={<Signup />} />
+					<Route path="/sign-in" element={<SignIn />} />
+					<Route path="/sign-up" element={<SignUp />} />
 					<Route path="/pixelBoards/:id" element={<BoardEditor />} />
 				</Routes>
 			</BrowserRouter>
-		</>
+		</div>
 	);
 }
 

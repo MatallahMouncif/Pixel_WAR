@@ -2,7 +2,8 @@ const bodyparser = require('body-parser');
 const cors = require('cors');
 const express = require('express');
 
-const login = require('./routes/login');
+const signIn = require('./routes/signIn');
+const signUp = require('./routes/signUp');
 const users = require('./routes/users');
 
 const app = express();
@@ -16,7 +17,8 @@ app.get('/', (req, res) => {
 	res.status(404).send('PixelWar Backend');
 });
 
-app.use('/login', login);
+app.use('/sign-in', signIn);
+app.use('/sign-up', signUp);
 app.use('/users', users);
 
 app.use((req, res, next, err) => {

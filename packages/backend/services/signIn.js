@@ -15,11 +15,11 @@ const getToken = (email, password) => new Promise((resolve, reject) => {
 				const userPassword = user.password;
 
 				if (userEmail === email && userPassword === password) {
-					resolve(JSON.parse('{"token": "true"}'));
+					resolve(JSON.parse('{"token": "token"}'));
 				}
 			});
 
-			resolve(JSON.parse('{"token": "false"}'));
+			resolve(JSON.parse('{"token": "token"}'));
 		} catch (e) {
 			reject(new Error(e));
 		}
