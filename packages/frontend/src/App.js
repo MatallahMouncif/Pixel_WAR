@@ -7,30 +7,30 @@ import {
 
 import './styles/App.css';
 
-import Login from './components/Login';
+import SignIn from './components/SignIn';
 import Signup from './components/Signup';
 import HomeNavBar from './components/HomeNavBar';
 import BoardEditor from './components/BoardEditor';
 
 function App() {
-	const [token, setToken] = useState();
+	const [isSigned, setIsSigned] = useState();
 
-	if (!token) {
-		return <Login setToken={setToken} />;
+	if (!isSigned) {
+		return <SignIn setIsSigned={setIsSigned} />;
 	}
 
 	return (
-		<>
+		<div className="wrapper">
 			<HomeNavBar />
 			<BrowserRouter>
 				<Routes>
 					<Route path="/" />
-					<Route path="/login" element={<Login />} />
+					<Route path="/sign-in" element={<SignIn />} />
 					<Route path="/sign-up" element={<Signup />} />
 					<Route path="/pixelBoards/:id" element={<BoardEditor />} />
 				</Routes>
 			</BrowserRouter>
-		</>
+		</div>
 	);
 }
 

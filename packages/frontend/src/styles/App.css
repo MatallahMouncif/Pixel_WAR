@@ -1,7 +1,11 @@
 body {
-  background: white ;
+  background: white;
   align-items: center;
   min-width: fit-content;
   height: 100%;
   width: 100%;
+}
+
+.wrapper {
+  padding: 20px;
 }

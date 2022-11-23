@@ -26,10 +26,8 @@ function HomeNavBar() {
 							</NavDropdown.Item>
 						</NavDropdown>
 					</Nav>
-					<Nav.Link href="/login">Log In</Nav.Link>
-					<Nav.Link href="/sign-up" className="ms-3" id="Login">
-						SignUp
-					</Nav.Link>
+					<Nav.Link href="/sign-in">Sign in</Nav.Link>
+					<Nav.Link href="/sign-up">SignUp</Nav.Link>
 				</Navbar.Collapse>
 			</Container>
 		</Navbar>

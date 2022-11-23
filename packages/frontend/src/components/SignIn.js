@@ -1,11 +1,10 @@
-import PropTypes from 'prop-types';
+import PropsTypes from 'prop-types';
 import React, { useState } from 'react';
 
-import '../styles/Login.css';
+import '../styles/SignIn.css';
 
-async function loginUser(credentials) {
-	// TODO: replace with backend call
-	return fetch('http://localhost:3003/login', {
+async function signInUser(credentials) {
+	return fetch('http://localhost:3003/sign-in', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -15,25 +14,25 @@ async function loginUser(credentials) {
 		.then((data) => data.json());
 }
 
-export default function Login({ setToken }) {
+export default function SignIn({ setIsSigned }) {
 	const [email, setEmail] = useState();
 	const [password, setPassword] = useState();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		const token = await loginUser({
+		const isSigned = await signInUser({
 			email,
 			password,
 		});
 
-		setToken(token);
+		setIsSigned(isSigned);
 	};
 
 	return (
-		<div className="login-wrapper">
-			<div className="login-inner">
-				<h2>Log In</h2>
+		<div className="sign-in-wrapper">
+			<div className="sign-in-inner">
+				<h2>Sign in</h2>
 				<form onSubmit={handleSubmit}>
 					<div>
 						<label className="form-label" htmlFor="email">Email</label>
@@ -67,6 +66,6 @@ export default function Login({ setToken }) {
 	);
 }
 
-Login.propTypes = {
-	setToken: PropTypes.func.isRequired,
+SignIn.propTypes = {
+	setIsSigned: PropsTypes.func.isRequired,
 };
