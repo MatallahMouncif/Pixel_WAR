@@ -9,6 +9,7 @@
     "bootstrap": "^5.2.2",
     "jquery": "^3.6.1",
     "prop-types": "^15.8.1",
+    "eslint-config-53js": "^2.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.6.0",
     "react-color": "^2.19.3",

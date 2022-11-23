@@ -1,0 +1,39 @@
+version: "3"
+services:
+  ui:
+    container_name: ui
+    build: ./packages/frontend/ # Localisation du Dockerfile dans notre cas dans le dossier racine
+    ports:
+      - 3004:3004
+    volumes:
+      - ./:/usr/src/app/packages/frontend/ # Le volume du WORKDIR
+      - /usr/src/app/packages/frontend/node_modules
+    environment:
+      - PORT=3004 # Nous pouvons définir ici plusieurs variables d'environnement
+    depends_on:
+      - api
+  api:
+    container_name: api
+    build: ./packages/backend/ # Localisation du Dockerfile dans notre cas dans le dossier racine
+    ports:
+      - 3003:3003 # Nous exposons le port 8800
+    volumes:
+      - ./:/usr/src/app/packages/backend/ # Le volume du WORKDIR
+      - /usr/src/app/packages/backend/node_modules
+    environment:
+      - PORT=3003 # Nous pouvons définir ici plusieurs variables d'environnement
+    depends_on:
+    - mongo
+  mongo:
+    image: mongo:3.6
+    volumes:
+      - mongo-storage:/data/db # Nous pouvons ajouter un volume à ce container afin de stocker les données de la base
+    expose:
+      - 27017
+    ports:
+      - 27017:27017
+
+# Définition des volumes:
+volumes:
+  mongo-storage:
+    driver: local
