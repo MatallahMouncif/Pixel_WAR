@@ -1,4 +1,4 @@
-const fs = require('node:fs');
+const fs = require('fs');
 
 const getAllUsers = () => new Promise((resolve, reject) => {
 	fs.readFile(`${__dirname}/../data/users.json`, 'utf8', (err, data) => {
