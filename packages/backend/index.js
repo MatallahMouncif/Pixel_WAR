@@ -7,6 +7,7 @@ const mongoString = require('./config/db.config');
 const pixelboards = require('./routes/pixelboards');
 const signIn = require('./routes/signIn');
 const signUp = require('./routes/signUp');
+const users = require('./routes/users');
 
 const app = express();
 const PORT = 3003;
@@ -22,6 +23,7 @@ app.get('/', (req, res) => {
 app.use('/pixelboards', pixelboards);
 app.use('/sign-in', signIn);
 app.use('/sign-up', signUp);
+app.use('/users', users);
 
 app.use((req, res, next, err) => {
 	console.error(err.stack);

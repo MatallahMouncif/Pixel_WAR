@@ -19,8 +19,6 @@ router.get('/',
 
 router.get('/:id',
 	async (req, res) => {
-		console.log(req.params.id);
-
 		const pixelboard = await pixelboardService.getPixelboard(req.params.id);
 
 		res.send(pixelboard);
