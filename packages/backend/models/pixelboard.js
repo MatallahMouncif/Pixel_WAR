@@ -24,16 +24,14 @@ const pixelboardSchema = new mongoose.Schema({
 	},
 	override_available: {
 		type: Boolean,
-		default: false,
 		required: true,
 	},
 	user_delay: {
 		type: Number,
-		default: 10000,
 		required: true,
 	},
 	author_id: {
-		type: mongoose.Schema.Types.ObjectId,
+		type: String,
 		required: true,
 	},
 });

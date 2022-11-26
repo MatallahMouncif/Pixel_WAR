@@ -45,4 +45,13 @@ router.delete('/:id/delete',
 		res.send(deletedPixelboard);
 	});
 
+router.get('/:id/pixels',
+	async (req, res) => {
+		console.log(`GET PIXEL LIST FOR PB ID ${req.params.id}`);
+
+		const pixellist = await pixelboardService.getPixelList(req.params.id);
+
+		res.send(pixellist);
+	});
+
 module.exports = router;

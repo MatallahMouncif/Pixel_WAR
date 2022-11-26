@@ -1,4 +1,5 @@
 const Pixelboard = require('../models/pixelboard');
+const Pixel = require('../models/pixel');
 
 const getPixelboards = () => new Promise((resolve, reject) => {
 	try {
@@ -58,8 +59,18 @@ const deletePixelboard = (id) => new Promise((resolve, reject) => {
 	}
 });
 
+const getPixelList = (_id) => new Promise((resolve, reject) => {
+	try {
+		const pixellist = Pixel.find({ pixel_board_id: _id });
+		resolve(pixellist);
+	} catch (error) {
+		reject(error);
+	}
+});
+
 module.exports.getPixelboards = getPixelboards;
 module.exports.getPixelboard = getPixelboard;
 module.exports.createPixelboard = createPixelboard;
 module.exports.updatePixelboard = updatePixelboard;
 module.exports.deletePixelboard = deletePixelboard;
+module.exports.getPixelList = getPixelList;
