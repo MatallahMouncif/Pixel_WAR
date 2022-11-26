@@ -1,30 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import { getAllUsers } from '../query/user';
-// import PropTypes from 'prop-types';
+import Nav from 'react-bootstrap/Nav';
+import NavItem from 'react-bootstrap/NavItem';
+import Button from 'react-bootstrap/Button';
 
-export const Users = () => {
-	const [user, setUser] = useState([]);
-	const [error, setError] = useState(null);
-
-	useEffect(() => {
-		getAllUsers().then((u) => setUser(u)).catch((err) => setError(err));
-	}, []);
-
+export default function Users() {
 	return (
-		<section>
-			<h1>User List</h1>
-			<ul>
-				{ user.map((u) => (
-					<li key={u.id}>
-						{u.name}
-					</li>
-				))}
-			</ul>
-			{error && <p>{error.message}</p>}
-		</section>
+		<div className="sidebar">
+			<Nav className="flex-column">
+				<NavItem>
+					<Nav.Link href="/user">Profile</Nav.Link>
+				</NavItem>
+				<NavItem>
+					<Nav.Link href="/user/createPixelBoard">
+						Create Pixel Board
+					</Nav.Link>
+				</NavItem>
+				<NavItem>
+					<Nav.Link href="/pixelBoards">Pixel Boards</Nav.Link>
+				</NavItem>
+				<NavItem>
+					<Nav.Link href="/sign-in">
+						<Button variant="outline-danger">Logout</Button>
+					</Nav.Link>
+				</NavItem>
+			</Nav>
+		</div>
 	);
-};
-
+}
 // User.propTypes = {
 
 // };
