@@ -11,7 +11,8 @@ import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import HomeNavBar from './components/HomeNavBar';
 import BoardEditor from './components/BoardEditor';
-
+import PixelBoard from './components/PixelBoardCreator';
+import Users from './components/Users';
 import useToken from './components/useToken';
 
 function App() {
@@ -30,6 +31,8 @@ function App() {
 					<Route path="/sign-in" element={<SignIn />} />
 					<Route path="/sign-up" element={<SignUp />} />
 					<Route path="/pixelBoards/:id" element={<BoardEditor />} />
+					<Route exact path="/user" element={<Users />} />
+					<Route path="/user/createPixelBoard" element={<PixelBoard />} />
 				</Routes>
 			</BrowserRouter>
 		</div>
