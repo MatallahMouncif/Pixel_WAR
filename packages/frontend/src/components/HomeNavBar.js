@@ -18,7 +18,7 @@ function HomeNavBar() {
 							<NavDropdown.Item href="#action/3.1">
 								Settings
 							</NavDropdown.Item>
-							<NavDropdown.Item href="/createBoard">
+							<NavDropdown.Item href="/user">
 								Create new board
 							</NavDropdown.Item>
 							<NavDropdown.Item href="/createBoard">
