@@ -9,3 +9,4 @@ new console
 docker ps
 copy ID
 docker exec -it ID bash
+mongo

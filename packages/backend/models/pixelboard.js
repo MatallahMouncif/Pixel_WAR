@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const pixelboardSchema = new mongoose.Schema({
-	id: {
-		type: Number,
-		required: true,
-	},
 	title: {
 		type: String,
 		required: true,
@@ -13,22 +9,17 @@ const pixelboardSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	creationDate: {
-		type: Date,
+	creation_date: {
+		type: Number,
 		default: null,
 		required: true,
 	},
-	endDate: {
-		type: Date,
+	end_date: {
+		type: Number,
 		default: null,
 	},
 	size: {
 		type: Number,
-		required: true,
-	},
-	author: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'User',
 		required: true,
 	},
 	override_available: {
@@ -36,9 +27,13 @@ const pixelboardSchema = new mongoose.Schema({
 		default: false,
 		required: true,
 	},
-	userDelay: {
+	user_delay: {
 		type: Number,
 		default: 10000,
+		required: true,
+	},
+	author_id: {
+		type: mongoose.Schema.Types.ObjectId,
 		required: true,
 	},
 });

@@ -19,11 +19,30 @@ router.get('/',
 
 router.get('/:id',
 	async (req, res) => {
-		console.log(req.params.id);
-
 		const pixelboard = await pixelboardService.getPixelboard(req.params.id);
 
 		res.send(pixelboard);
+	});
+
+router.post('/create',
+	async (req, res) => {
+		const createdPixelboard = await pixelboardService.createPixelboard(req.body);
+
+		res.send(createdPixelboard);
+	});
+
+router.put('/:id/update',
+	async (req, res) => {
+		const updatedPixelboard = await pixelboardService.updatePixelboard(req.params.id, req.body);
+
+		res.send(updatedPixelboard);
+	});
+
+router.delete('/:id/delete',
+	async (req, res) => {
+		const deletedPixelboard = await pixelboardService.deletePixelboard(req.params.id);
+
+		res.send(deletedPixelboard);
 	});
 
 module.exports = router;
