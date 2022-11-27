@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const mongoString = require('./config/db.config');
 
 const pixelboards = require('./routes/pixelboards');
+const pixels = require('./routes/pixels');
 const signIn = require('./routes/signIn');
 const signUp = require('./routes/signUp');
 const users = require('./routes/users');
@@ -21,6 +22,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/pixelboards', pixelboards);
+app.use('/pixels', pixels);
 app.use('/sign-in', signIn);
 app.use('/sign-up', signUp);
 app.use('/users', users);
