@@ -22,24 +22,17 @@ router.post('/',
 				return res.status(404).send('User not found');
 			}
 
-			console.log(req.body.password);
-			console.log(user.password);
-
 			const passwordIsValid = bcrypt.compareSync(
 				req.body.password,
 				user.password,
 			);
 
-			console.log(passwordIsValid);
-
-			/*
 			if (!passwordIsValid) {
 				return res.status(401).send({
 					accessToken: null,
 					message: 'Invalid Password!',
 				});
 			}
-			*/
 
 			const token = jwt.sign(
 				{ id: user.id },

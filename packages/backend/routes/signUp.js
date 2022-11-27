@@ -22,9 +22,7 @@ router.post('/',
 
 			const hashedPassword = bcrypt.hashSync(req.body.password, 8);
 
-			const signedUp = await signUpService.signUp(req.body.name, req.body.email, hashedPassword);
-
-			console.log(signedUp);
+			await signUpService.signUp(req.body.name, req.body.email, hashedPassword);
 
 			return res.status(201).json({ message: 'User created' });
 		} catch (err) {
