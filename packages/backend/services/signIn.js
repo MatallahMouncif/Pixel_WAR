@@ -1,29 +1,13 @@
-const fs = require('node:fs');
+const User = require('../models/user');
 
-const getToken = (email, password) => new Promise((resolve, reject) => {
-	fs.readFile(`${__dirname}/../data/users.json`, 'utf8', (err, data) => {
-		if (err) {
-			reject(new Error('Unable to get users'));
-		}
+const getUser = (body) => new Promise((resolve, reject) => {
+	try {
+		const user = User.findOne({ name: body.name });
 
-		try {
-			// TODO: Replace with a real database
-			const users = JSON.parse(data);
-
-			users.forEach((user) => {
-				const userEmail = user.email;
-				const userPassword = user.password;
-
-				if (userEmail === email && userPassword === password) {
-					resolve(JSON.parse('{"token": "token"}'));
-				}
-			});
-
-			resolve(JSON.parse('{"token": "token"}'));
-		} catch (e) {
-			reject(new Error(e));
-		}
-	});
+		resolve(user);
+	} catch (error) {
+		reject(error);
+	}
 });
 
-module.exports.getToken = getToken;
+module.exports.getUser = getUser;

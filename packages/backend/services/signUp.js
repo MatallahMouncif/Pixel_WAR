@@ -1,21 +1,33 @@
-const fs = require('node:fs');
+const User = require('../models/user');
 
-const signUp = (pseudo, email, password) => new Promise((resolve, reject) => {
-	fs.readFile(`${__dirname}/../data/users.json`, 'utf8', (err, data) => {
-		if (err) {
-			reject(new Error('Unable to get users'));
-		}
+const getUser = (body) => new Promise((resolve, reject) => {
+	try {
+		const user = User.findOne(
+			{ name: body.name },
+			{ email: body.email },
+		);
 
-		try {
-			// TODO: Replace with a database insertion
-			console.log(pseudo, email, password);
-			console.log(data);
-
-			resolve();
-		} catch (e) {
-			reject(new Error(e));
-		}
-	});
+		resolve(user);
+	} catch (error) {
+		reject(error);
+	}
 });
 
+const signUp = (name, email, password) => new Promise((resolve, reject) => {
+	try {
+		const user = new User({
+			name,
+			email,
+			password,
+		});
+
+		user.save();
+
+		resolve(user);
+	} catch (error) {
+		reject(error);
+	}
+});
+
+module.exports.getUser = getUser;
 module.exports.signUp = signUp;
