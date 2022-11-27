@@ -13,6 +13,8 @@ import HomeNavBar from './components/HomeNavBar';
 import BoardEditor from './components/BoardEditor';
 import PixelBoard from './components/PixelBoardCreator';
 import Users from './components/Users';
+import PixelBoards from './components/PixelBoards';
+
 import useToken from './components/useToken';
 
 function App() {
@@ -27,7 +29,7 @@ function App() {
 			<HomeNavBar />
 			<BrowserRouter>
 				<Routes>
-					<Route path="/" />
+					<Route path="/" element={<PixelBoards />} />
 					<Route path="/sign-in" element={<SignIn />} />
 					<Route path="/sign-up" element={<SignUp />} />
 					<Route path="/pixelBoards/:id" element={<BoardEditor />} />
