@@ -21,6 +21,16 @@ const getPixelboard = (id) => new Promise((resolve, reject) => {
 	}
 });
 
+const getPixelboardsCount = () => new Promise((resolve, reject) => {
+	try {
+		const count = Pixelboard.countDocuments();
+
+		resolve(count);
+	} catch (error) {
+		reject(error);
+	}
+});
+
 const createPixelboard = (pixelboard) => new Promise((resolve, reject) => {
 	try {
 		const newPixelboard = new Pixelboard(pixelboard);
@@ -70,6 +80,7 @@ const getPixelList = (_id) => new Promise((resolve, reject) => {
 
 module.exports.getPixelboards = getPixelboards;
 module.exports.getPixelboard = getPixelboard;
+module.exports.getPixelboardsCount = getPixelboardsCount;
 module.exports.createPixelboard = createPixelboard;
 module.exports.updatePixelboard = updatePixelboard;
 module.exports.deletePixelboard = deletePixelboard;

@@ -17,11 +17,18 @@ router.get('/',
 		res.send(pixelboards);
 	});
 
-router.get('/:id',
+router.get('/id=:id',
 	async (req, res) => {
 		const pixelboard = await pixelboardService.getPixelboard(req.params.id);
 
 		res.send(pixelboard);
+	});
+
+router.get('/count',
+	async (req, res) => {
+		const count = await pixelboardService.getPixelboardsCount();
+
+		res.send({ count });
 	});
 
 router.post('/create',

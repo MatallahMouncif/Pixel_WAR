@@ -26,9 +26,9 @@ router.get('/id=:id',
 
 router.get('/count',
 	async (req, res) => {
-		const number = await userService.getUsersNumber();
+		const count = await userService.getUsersNumber();
 
-		res.send(number.toString());
+		res.send({ count });
 	});
 
 router.post('/create',
