@@ -31,6 +31,20 @@ router.get('/count',
 		res.send({ count });
 	});
 
+router.get('/in-progress',
+	async (req, res) => {
+		const pixelboards = await pixelboardService.getInProgressPixelboards();
+
+		res.send(pixelboards);
+	});
+
+router.get('/finished',
+	async (req, res) => {
+		const pixelboards = await pixelboardService.getFinishedPixelboards();
+
+		res.send(pixelboards);
+	});
+
 router.post('/create',
 	async (req, res) => {
 		const createdPixelboard = await pixelboardService.createPixelboard(req.body);
