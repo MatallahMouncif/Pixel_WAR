@@ -68,6 +68,18 @@ const getRemainingTime = (id) => new Promise((resolve, reject) => {
 	}
 });
 
+const getMyPixelboards = (authorId) => new Promise((resolve, reject) => {
+	try {
+		const myPixelboards = Pixelboard.find(
+			{ author_id: authorId },
+		);
+
+		resolve(myPixelboards);
+	} catch (error) {
+		reject(error);
+	}
+});
+
 const createPixelboard = (pixelboard) => new Promise((resolve, reject) => {
 	try {
 		const newPixelboard = new Pixelboard(pixelboard);
@@ -122,6 +134,7 @@ module.exports.getPixelboardsCount = getPixelboardsCount;
 module.exports.getInProgressPixelboards = getInProgressPixelboards;
 module.exports.getFinishedPixelboards = getFinishedPixelboards;
 module.exports.getRemainingTime = getRemainingTime;
+module.exports.getMyPixelboards = getMyPixelboards;
 module.exports.createPixelboard = createPixelboard;
 module.exports.updatePixelboard = updatePixelboard;
 module.exports.deletePixelboard = deletePixelboard;
