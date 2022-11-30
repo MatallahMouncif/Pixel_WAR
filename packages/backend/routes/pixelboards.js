@@ -52,7 +52,7 @@ router.get('/id=:id/remaing-time',
 		res.send({ remainingTime });
 	});
 
-router.get('/my-pixelboards=:author_id',
+router.get('/author_id=:author_id',
 	async (req, res) => {
 		const pixelboards = await pixelboardService.getMyPixelboards(req.params.author_id);
 
