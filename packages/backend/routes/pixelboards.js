@@ -17,11 +17,46 @@ router.get('/',
 		res.send(pixelboards);
 	});
 
-router.get('/:id',
+router.get('/id=:id',
 	async (req, res) => {
 		const pixelboard = await pixelboardService.getPixelboard(req.params.id);
 
 		res.send(pixelboard);
+	});
+
+router.get('/count',
+	async (req, res) => {
+		const count = await pixelboardService.getPixelboardsCount();
+
+		res.send({ count });
+	});
+
+router.get('/in-progress',
+	async (req, res) => {
+		const pixelboards = await pixelboardService.getInProgressPixelboards();
+
+		res.send(pixelboards);
+	});
+
+router.get('/finished',
+	async (req, res) => {
+		const pixelboards = await pixelboardService.getFinishedPixelboards();
+
+		res.send(pixelboards);
+	});
+
+router.get('/id=:id/remaing-time',
+	async (req, res) => {
+		const remainingTime = await pixelboardService.getRemainingTime(req.params.id);
+
+		res.send({ remainingTime });
+	});
+
+router.get('/author_id=:author_id',
+	async (req, res) => {
+		const pixelboards = await pixelboardService.getMyPixelboards(req.params.author_id);
+
+		res.send(pixelboards);
 	});
 
 router.post('/create',

@@ -20,6 +20,16 @@ const getUser = (id) => new Promise((resolve, reject) => {
 	}
 });
 
+const getUsersNumber = () => new Promise((resolve, reject) => {
+	try {
+		const number = User.countDocuments();
+
+		resolve(number);
+	} catch (error) {
+		reject(error);
+	}
+});
+
 const createUser = (user) => new Promise((resolve, reject) => {
 	try {
 		const newUser = new User(user);
@@ -60,6 +70,7 @@ const deleteUser = (id) => new Promise((resolve, reject) => {
 
 module.exports.getUsers = getUsers;
 module.exports.getUser = getUser;
+module.exports.getUsersNumber = getUsersNumber;
 module.exports.createUser = createUser;
 module.exports.updateUser = updateUser;
 module.exports.deleteUser = deleteUser;

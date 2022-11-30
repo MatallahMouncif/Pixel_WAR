@@ -10,6 +10,15 @@ router.use((req, res, next) => {
 	next();
 });
 
+router.get('/author_id=:author_id',
+	async (req, res) => {
+		console.log('GETTING MY PIXELS');
+		console.log(req.params.author_id);
+		const myPixels = await pixelService.getMyPixels(req.params.author_id);
+
+		res.send(myPixels);
+	});
+
 router.post('/',
 	async (req, res) => {
 		const createdPixel = await pixelService.createPixel(req.body);
