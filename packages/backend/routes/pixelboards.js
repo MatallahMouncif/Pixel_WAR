@@ -45,6 +45,13 @@ router.get('/finished',
 		res.send(pixelboards);
 	});
 
+router.get('/id=:id/remaing-time',
+	async (req, res) => {
+		const remainingTime = await pixelboardService.getRemainingTime(req.params.id);
+
+		res.send({ remainingTime });
+	});
+
 router.post('/create',
 	async (req, res) => {
 		const createdPixelboard = await pixelboardService.createPixelboard(req.body);

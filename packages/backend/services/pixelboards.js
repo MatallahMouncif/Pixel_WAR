@@ -51,6 +51,23 @@ const getFinishedPixelboards = () => new Promise((resolve, reject) => {
 	}
 });
 
+const getRemainingTime = (id) => new Promise((resolve, reject) => {
+	try {
+		Pixelboard.findById(id).exec().then((pixelboard) => {
+			const endDate = pixelboard.end_date;
+			let remainingTime = new Date(endDate) - new Date().getTime();
+
+			if (remainingTime < 0) {
+				remainingTime = 0;
+			}
+
+			resolve(remainingTime);
+		});
+	} catch (error) {
+		reject(error);
+	}
+});
+
 const createPixelboard = (pixelboard) => new Promise((resolve, reject) => {
 	try {
 		const newPixelboard = new Pixelboard(pixelboard);
@@ -92,6 +109,7 @@ const deletePixelboard = (id) => new Promise((resolve, reject) => {
 const getPixelList = (_id) => new Promise((resolve, reject) => {
 	try {
 		const pixellist = Pixel.find({ pixel_board_id: _id });
+
 		resolve(pixellist);
 	} catch (error) {
 		reject(error);
@@ -103,6 +121,7 @@ module.exports.getPixelboard = getPixelboard;
 module.exports.getPixelboardsCount = getPixelboardsCount;
 module.exports.getInProgressPixelboards = getInProgressPixelboards;
 module.exports.getFinishedPixelboards = getFinishedPixelboards;
+module.exports.getRemainingTime = getRemainingTime;
 module.exports.createPixelboard = createPixelboard;
 module.exports.updatePixelboard = updatePixelboard;
 module.exports.deletePixelboard = deletePixelboard;
