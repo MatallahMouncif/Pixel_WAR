@@ -17,7 +17,7 @@ const pixelSchema = new mongoose.Schema({
 		type: Number,
 		required: true,
 	},
-	author_name: {
+	author_id: {
 		type: String,
 		required: true,
 	},

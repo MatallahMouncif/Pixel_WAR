@@ -2,8 +2,7 @@ const Pixel = require('../models/pixel');
 
 const getMyPixels = (authorId) => new Promise((resolve, reject) => {
 	try {
-		// TODO: replace author_name by author_id
-		const myPixels = Pixel.find({ author_name: authorId });
+		const myPixels = Pixel.find({ author_id: authorId });
 
 		resolve(myPixels);
 	} catch (error) {
