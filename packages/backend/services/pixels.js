@@ -1,5 +1,15 @@
 const Pixel = require('../models/pixel');
 
+const getMyPixels = (authorId) => new Promise((resolve, reject) => {
+	try {
+		const myPixels = Pixel.find({ author_id: authorId });
+
+		resolve(myPixels);
+	} catch (error) {
+		reject(error);
+	}
+});
+
 const createPixel = (pixel) => new Promise((resolve, reject) => {
 	try {
 		const newPixel = new Pixel(pixel);
@@ -26,5 +36,6 @@ const updatePixel = (id, pixel) => new Promise((resolve, reject) => {
 	}
 });
 
+module.exports.getMyPixels = getMyPixels;
 module.exports.updatePixel = updatePixel;
 module.exports.createPixel = createPixel;
