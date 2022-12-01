@@ -17,18 +17,18 @@ router.get('/',
 		res.send(pixelboards);
 	});
 
-router.get('/id=:id',
+router.get('/count',
+	async (req, res) => {
+		const count = await pixelboardService.countPixelboards();
+
+		res.send({ count });
+	});
+
+router.get('/:id',
 	async (req, res) => {
 		const pixelboard = await pixelboardService.getPixelboard(req.params.id);
 
 		res.send(pixelboard);
-	});
-
-router.get('/count',
-	async (req, res) => {
-		const count = await pixelboardService.getPixelboardsCount();
-
-		res.send({ count });
 	});
 
 router.get('/in-progress',
@@ -45,14 +45,14 @@ router.get('/finished',
 		res.send(pixelboards);
 	});
 
-router.get('/id=:id/remaing-time',
+router.get('/:id/remaing-time',
 	async (req, res) => {
 		const remainingTime = await pixelboardService.getRemainingTime(req.params.id);
 
 		res.send({ remainingTime });
 	});
 
-router.get('/author_id=:author_id',
+router.get('/author/:author_id',
 	async (req, res) => {
 		const pixelboards = await pixelboardService.getMyPixelboards(req.params.author_id);
 
@@ -66,11 +66,18 @@ router.post('/create',
 		res.send(createdPixelboard);
 	});
 
-router.put('/:id/update',
+router.put('/:id/put',
 	async (req, res) => {
-		const updatedPixelboard = await pixelboardService.updatePixelboard(req.params.id, req.body);
+		const updatedPixelboard = await pixelboardService.putPixelboard(req.params.id, req.body);
 
 		res.send(updatedPixelboard);
+	});
+
+router.patch('/:id/patch',
+	async (req, res) => {
+		const patchedPixelboard = await pixelboardService.patchPixelboard(req.params.id, req.body);
+
+		res.send(patchedPixelboard);
 	});
 
 router.delete('/:id/delete',
