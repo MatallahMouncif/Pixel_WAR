@@ -34,6 +34,10 @@ const pixelboardSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
+	thumbnail: {
+		type: String,
+		required: false,
+	},
 });
 
 module.exports = mongoose.model('Pixelboard', pixelboardSchema);
