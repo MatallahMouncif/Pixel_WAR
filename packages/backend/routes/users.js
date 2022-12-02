@@ -17,18 +17,18 @@ router.get('/',
 		res.send(users);
 	});
 
-router.get('/id=:id',
+router.get('/count',
+	async (req, res) => {
+		const count = await userService.countUsers();
+
+		res.send({ count });
+	});
+
+router.get('/:id',
 	async (req, res) => {
 		const user = await userService.getUser(req.params.id);
 
 		res.send(user);
-	});
-
-router.get('/count',
-	async (req, res) => {
-		const count = await userService.getUsersNumber();
-
-		res.send({ count });
 	});
 
 router.post('/create',

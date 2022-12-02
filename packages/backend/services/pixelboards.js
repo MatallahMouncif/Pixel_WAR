@@ -11,21 +11,21 @@ const getPixelboards = () => new Promise((resolve, reject) => {
 	}
 });
 
-const getPixelboard = (id) => new Promise((resolve, reject) => {
+const countPixelboards = () => new Promise((resolve, reject) => {
 	try {
-		const pixelboard = Pixelboard.findById(id);
+		const count = Pixelboard.countDocuments();
 
-		resolve(pixelboard);
+		resolve(count);
 	} catch (error) {
 		reject(error);
 	}
 });
 
-const getPixelboardsCount = () => new Promise((resolve, reject) => {
+const getPixelboard = (id) => new Promise((resolve, reject) => {
 	try {
-		const count = Pixelboard.countDocuments();
+		const pixelboard = Pixelboard.findById(id);
 
-		resolve(count);
+		resolve(pixelboard);
 	} catch (error) {
 		reject(error);
 	}
@@ -92,7 +92,7 @@ const createPixelboard = (pixelboard) => new Promise((resolve, reject) => {
 	}
 });
 
-const updatePixelboard = (id, pixelboard) => new Promise((resolve, reject) => {
+const putPixelboard = (id, pixelboard) => new Promise((resolve, reject) => {
 	try {
 		const updatedPixelboard = Pixelboard.findOneAndUpdate(
 			{ _id: id },
@@ -101,6 +101,19 @@ const updatePixelboard = (id, pixelboard) => new Promise((resolve, reject) => {
 		);
 
 		resolve(updatedPixelboard);
+	} catch (error) {
+		reject(error);
+	}
+});
+
+const patchPixelboard = (id, thumbnail) => new Promise((resolve, reject) => {
+	try {
+		const patchedPixelboard = Pixelboard.findOneAndUpdate(
+			{ _id: id },
+			{ $set: thumbnail },
+		);
+
+		resolve(patchedPixelboard);
 	} catch (error) {
 		reject(error);
 	}
@@ -129,13 +142,14 @@ const getPixelList = (_id) => new Promise((resolve, reject) => {
 });
 
 module.exports.getPixelboards = getPixelboards;
+module.exports.countPixelboards = countPixelboards;
 module.exports.getPixelboard = getPixelboard;
-module.exports.getPixelboardsCount = getPixelboardsCount;
 module.exports.getInProgressPixelboards = getInProgressPixelboards;
 module.exports.getFinishedPixelboards = getFinishedPixelboards;
 module.exports.getRemainingTime = getRemainingTime;
 module.exports.getMyPixelboards = getMyPixelboards;
 module.exports.createPixelboard = createPixelboard;
-module.exports.updatePixelboard = updatePixelboard;
+module.exports.putPixelboard = putPixelboard;
+module.exports.patchPixelboard = patchPixelboard;
 module.exports.deletePixelboard = deletePixelboard;
 module.exports.getPixelList = getPixelList;
