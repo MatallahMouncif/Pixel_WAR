@@ -1,11 +1,14 @@
 /* eslint-disable */
 import React, { useState, useEffect } from 'react';
 import '../styles/BoardEditor.css';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import 'toolcool-color-picker';
 import data from './boards.json';
 import 'bootstrap';
-const BoardEditor = () => {
+import axios from 'axios';
+import { CirclePicker } from 'react-color';
+import { func } from 'prop-types';
+const BoardEditor = props => {
 	const [panelWidth, setPanelWidth] = useState(600);
 	const [panelHeight, setPanelHeight] = useState(600);
 	const [cellSideNumber, setCellSideNumber] = useState(50);
@@ -13,11 +16,17 @@ const BoardEditor = () => {
 	const [editMode, setEditMode] = useState(false);
 	let [lastCell, setLastCell] = useState(null);
 	let [currentCell, setCurrentCell] = useState(null);
+	let [selectedColor, setSelectedColor] = useState('#f44336');
+	let [pixels, setPixels] = useState(null);
+	let [redirect, setRedirect] = useState(false);
+	const navigate = useNavigate();
 	const params = useParams();
 
-	function getColor() {
-		const colorPicker = document.getElementById('colorPicker');
-		return colorPicker.hex;
+
+	function changeColor(color) {
+		if (lastCell !== null)
+			fillCellWithColor(lastCell.cellX, lastCell.cellY, lastCell.color);
+		setSelectedColor(color.hex);
 	}
 	useEffect(() => {
 		const canvas = document.getElementById('boardCanvas');
@@ -31,8 +40,15 @@ const BoardEditor = () => {
 		gridCtx.canvas.width = panelWidth;
 		gridCtx.canvas.height = panelHeight;
 		drawGrid(ctx);
-		//recuperer les cellules du board depuis la bd ensuite les draw
-	});
+		axios.get('http://localhost:3003/pixelboards/' + params.id + "/pixels").then((response) => {
+			setPixels(response.data);
+			console.log(response.data);
+			response.data.forEach(pixel => {
+				fillCellWithColor(pixel.x, pixel.y, pixel.color);
+			});
+
+		});
+	}, []);
 	function drawGrid(ctx) {
 		for (let x = 0; x <= panelWidth; x += 20) {
 			for (let y = 0; y <= panelHeight; y += 20) {
@@ -45,27 +61,40 @@ const BoardEditor = () => {
 			}
 		}
 	}
+	function fillCellWithColor(x, y, color) {
+		const canvas = document.getElementById('boardCanvas');
+		const ctx = canvas.getContext('2d');
+		ctx.fillStyle = color;
+		ctx.fillRect((x * cellSize) + 1, (y * cellSize) + 1, cellSize - 2, cellSize - 2);
+	}
 	function fillCell(cellX, cellY) {
-		const currentColor = getColor();
+		const currentColor = selectedColor;
 		const canvas = document.getElementById('boardCanvas');
 		const ctx = canvas.getContext('2d');
 		currentCell = { cellX, cellY, color: currentColor };
 		if (lastCell != null) {
-			const lastX = lastCell.cellX * cellSize;
-			const lastY = lastCell.cellY * cellSize;
-			ctx.fillStyle = lastCell.color;
-			ctx.fillRect(lastX + 1, lastY + 1, cellSize - 2, cellSize - 2);
+			fillCellWithColor(lastCell.cellX, lastCell.cellY, lastCell.color);
 		}
 		const startX = cellX * cellSize;
 		const startY = cellY * cellSize;
 		ctx.fillStyle = currentColor;
 		ctx.fillRect(startX + 1, startY + 1, cellSize - 2, cellSize - 2);
-		lastCell = { cellX, cellY, color: "#ffffff" };
+		lastCell = { cellX, cellY, color: setLastColor(cellX, cellY) };
 		document.getElementById('cellX').textContent = "Cell X : " + cellX;
 		document.getElementById('cellY').textContent = "Cell Y : " + cellY;
 		document.getElementById('cellColor').textContent = "Cell Color : " + currentColor;
 		// saving in db
 	}
+	function setLastColor(cellX, cellY) {
+		for (let i = 0; i < pixels.length; i++) {
+			if (pixels[i].x == cellX && pixels[i].y == cellY) {
+				return pixels[i].color;
+			}
+		}
+
+		return '#ffffff';
+	}
+
 	function switchEditMode() {
 		setEditMode(!editMode);
 	}
@@ -83,8 +112,10 @@ const BoardEditor = () => {
 		const canvas = document.getElementById('boardCanvas');
 		const img = canvas.toDataURL('image/png');
 		const id = 3;
+		axios.patch('http://localhost:3003/pixelboards/' + params.id + "/patch", {
+			thumbnail: img
+		}).then(() => { navigate("/"); });
 		console.log(currentCell);
-		console.log(img);
 	}
 	return (
 		<>
@@ -100,7 +131,7 @@ const BoardEditor = () => {
 						</div>
 						<div className='pixelInfo'>
 							<label>Pick a color : &nbsp;</label>
-							<toolcool-color-picker color="#000000" id="colorPicker" />
+							<CirclePicker color={selectedColor} onChangeComplete={changeColor} id="colorPicker" />
 							<p id='cellX'></p>
 							<p id='cellY'></p>
 							<p id='cellColor'></p>
