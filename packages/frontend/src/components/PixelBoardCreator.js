@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import '../styles/SignUp.css';
 
 async function pixelBoardCreatorBack(informations) {
-	return fetch('http://localhost:3003/pixelboards', {
+	return fetch('http://localhost:3003/pixelboards/create', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -14,21 +14,28 @@ async function pixelBoardCreatorBack(informations) {
 }
 
 export default function PixelBoard({ setData }) {
-	const [name, setName] = useState();
+	const [title, setTitle] = useState();
+	const status = 'in Progress';
+	const creationDate = new Date().getTime();
+	const [pixel, setPixel] = useState();
 	const [author, setAuthor] = useState();
 	const [epixel, setEpixel] = useState();
 	const [time, setTime] = useState();
-	const [Etime, setEtime] = useState();
+	const [endDate, setEtime] = useState();
 
 	function handleSubmit() {
 		// e.preventDefault();
 
 		const data = pixelBoardCreatorBack({
-			name,
-			author,
-			epixel,
-			time,
-			Etime,
+			title,
+			status,
+			creation_date: creationDate,
+			size: pixel,
+			end_date: endDate,
+			author_id: author,
+			override_available: epixel,
+			user_delay: time,
+
 		});
 
 		setData(data);
@@ -40,16 +47,16 @@ export default function PixelBoard({ setData }) {
 				<h2>Create a new Pixel Board</h2>
 				<form>
 					<div>
-						<label className="form-label" htmlFor="name">
-							Name
+						<label className="form-label" htmlFor="title">
+							title
 						</label>
 						<input
-							id="name"
+							id="title"
 							className="form-control"
-							name="name"
-							onChange={(e) => setName(e.target.value)}
+							name="title"
+							onChange={(e) => setTitle(e.target.value)}
 							type="text"
-							placeholder="Enter name"
+							placeholder="Enter title"
 							required
 						/>
 					</div>
@@ -68,6 +75,20 @@ export default function PixelBoard({ setData }) {
 						/>
 					</div>
 					<div>
+						<label className="form-label" htmlFor="number">
+							Resolution
+						</label>
+						<input
+							id="pixel"
+							className="form-control"
+							name="apixel"
+							onChange={(e) => setPixel(e.target.value)}
+							type="number"
+							placeholder="Enter X"
+							required
+						/>
+					</div>
+					<div>
 						<label className="form-label" htmlFor="author">
 							Edit Pixel
 						</label>
@@ -78,7 +99,7 @@ export default function PixelBoard({ setData }) {
 									type="radio"
 									name="exampleRadios"
 									id="exampleRadios1"
-									value="option1"
+									value="true"
 									onChange={(e) => setEpixel(e.target.value)}
 								/>
 								<label
@@ -94,7 +115,7 @@ export default function PixelBoard({ setData }) {
 									type="radio"
 									name="exampleRadios"
 									id="exampleRadios2"
-									value="option2"
+									value="false"
 									onChange={(e) => setEpixel(e.target.value)}
 								/>
 								<label
@@ -109,14 +130,14 @@ export default function PixelBoard({ setData }) {
 
 					<div>
 						<label className="form-label" htmlFor="time">
-							Time
+							End Date
 						</label>
 						<input
 							id="time"
 							className="form-control"
 							name="time"
-							onChange={(e) => setTime(e.target.value)}
-							type="time"
+							onChange={(e) => setEtime(new Date(e.target.value).getTime())}
+							type="date"
 							placeholder="Enter time"
 							required
 						/>
@@ -129,8 +150,8 @@ export default function PixelBoard({ setData }) {
 							id="time"
 							className="form-control"
 							name="time"
-							onChange={(e) => setEtime(e.target.value)}
-							type="time"
+							onChange={(e) => setTime(e.target.value)}
+							type="number"
 							placeholder="Enter time"
 							required
 						/>
