@@ -25,6 +25,7 @@ function App() {
 			url: 'http://localhost:3003/users/me',
 		}).then((res) => {
 			setUser(res.data);
+			sessionStorage.setItem('user', JSON.stringify(res.data));
 			console.log(res.data);
 		}).catch((err) => {
 			console.log(err);

@@ -1,19 +1,8 @@
-import PropsTypes from 'prop-types';
-import React, { useState } from 'react';
-
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import '../styles/SignUp.css';
 
-async function pixelBoardCreatorBack(informations) {
-	return fetch('http://localhost:3003/pixelboards/create', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(informations),
-	}).then((data) => data.json());
-}
-
-export default function PixelBoard({ setData }) {
+export default function PixelBoard() {
 	const [title, setTitle] = useState();
 	const status = 'in Progress';
 	const creationDate = new Date().getTime();
@@ -22,23 +11,34 @@ export default function PixelBoard({ setData }) {
 	const [epixel, setEpixel] = useState();
 	const [time, setTime] = useState();
 	const [endDate, setEtime] = useState();
+	useEffect(() => {
+		setAuthor(JSON.parse(sessionStorage.getItem('user')));
+	}, []);
 
-	function handleSubmit() {
-		// e.preventDefault();
-
-		const data = pixelBoardCreatorBack({
-			title,
-			status,
-			creation_date: creationDate,
-			size: pixel,
-			end_date: endDate,
-			author_id: author,
-			override_available: epixel,
-			user_delay: time,
-
-		});
-
-		setData(data);
+	function pixelBoardCreatorBack() {
+		if (pixel > 50) {
+			alert('Please enter a number less than 50');
+		} else {
+			axios({
+				method: 'POST',
+				withCredentials: true,
+				url: 'http://localhost:3003/pixelBoards/create',
+				data: {
+					title,
+					status,
+					creation_date: creationDate,
+					size: pixel,
+					end_date: endDate,
+					author_id: author.user.id,
+					override_available: epixel,
+					user_delay: time,
+				},
+			}).then((res) => {
+				console.log(res);
+			}).catch((err) => {
+				console.log(err);
+			});
+		}
 	}
 
 	return (
@@ -57,20 +57,6 @@ export default function PixelBoard({ setData }) {
 							onChange={(e) => setTitle(e.target.value)}
 							type="text"
 							placeholder="Enter title"
-							required
-						/>
-					</div>
-					<div>
-						<label className="form-label" htmlFor="author">
-							Author
-						</label>
-						<input
-							id="author"
-							className="form-control"
-							name="author"
-							onChange={(e) => setAuthor(e.target.value)}
-							type="author"
-							placeholder="Enter author"
 							required
 						/>
 					</div>
@@ -159,7 +145,7 @@ export default function PixelBoard({ setData }) {
 					<br />
 					<div>
 						<button
-							onClick={handleSubmit}
+							onClick={pixelBoardCreatorBack}
 							type="button"
 							className="btn btn-primary"
 						>
@@ -171,7 +157,3 @@ export default function PixelBoard({ setData }) {
 		</div>
 	);
 }
-
-PixelBoard.propTypes = {
-	setData: PropsTypes.func.isRequired,
-};
