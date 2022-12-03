@@ -137,7 +137,7 @@ function BoardEditor(props) {
 					color: selectedColor,
 					x: currentCell.cellX,
 					y: currentCell.cellY,
-					author_id: JSON.parse(sessionStorage.getItem('user')).user.id,
+					author_id: sessionStorage.getItem('user_id'),
 					pixel_board_id: params.id.toString()
 				},
 				withCredentials: true
