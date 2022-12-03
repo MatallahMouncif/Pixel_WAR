@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import '../styles/PixelBoards.css';
 import { useParams, Link } from 'react-router-dom';
 import BoardEditor from './BoardEditor';
-import data from './boards.json';
 import axios from 'axios';
 import 'bootstrap';
 

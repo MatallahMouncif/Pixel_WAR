@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+
 import {
 	BrowserRouter,
 	Route,
@@ -18,6 +19,7 @@ import PixelBoards from './components/PixelBoards';
 
 function App() {
 	const [user, setUser] = React.useState(null);
+
 	useEffect(() => {
 		axios({
 			method: 'GET',
