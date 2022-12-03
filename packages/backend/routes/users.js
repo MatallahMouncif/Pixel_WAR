@@ -16,7 +16,17 @@ router.get('/',
 
 		res.send(users);
 	});
+router.get('/me', (req, res) => {
+	if (req.isAuthenticated()) {
+		return res.status(200).json({ user: req.user });
+	}
 
+	return res.status(401).json({ message: 'Unauthorized' });
+});
+router.get('/logout', (req, res) => {
+	req.session.destroy();
+	res.send('Logged out');
+});
 router.get('/count',
 	async (req, res) => {
 		const count = await userService.countUsers();
