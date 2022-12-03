@@ -1,42 +1,33 @@
+/* eslint-disable */
 import PropsTypes from 'prop-types';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import '../styles/SignUp.css';
-
-async function signUpUser(informations) {
-	return fetch('http://localhost:3003/sign-up', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(informations),
-	})
-		.then((data) => data.json());
-}
-
-export default function SignUp({ setToken }) {
+export default function SignUp() {
 	const [pseudo, setPseudo] = useState();
 	const [email, setEmail] = useState();
 	const [password, setPassword] = useState();
-
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-
-		const token = await signUpUser({
-			pseudo,
-			email,
-			password,
-		});
-
-		setToken(token);
+	const navigate = useNavigate();
+	const signUp = () => {
+		axios({
+			method: 'post',
+			url: 'http://localhost:3003/sign-up',
+			data: {
+				name: pseudo,
+				email: email,
+				password: password,
+				role: 0,
+			},
+			withCredentials: true,
+		}).then((res) => { { navigate("/"); } });
 	};
 
 	return (
 		<div className="sign-up-wrapper">
 			<div className="sign-up-inner">
 				<h2>Sign up</h2>
-				<form onSubmit={handleSubmit}>
+				<form>
 					<div>
 						<label className="form-label" htmlFor="pseudo">Pseudo</label>
 						<input
@@ -75,11 +66,11 @@ export default function SignUp({ setToken }) {
 					</div>
 					<br />
 					<div>
-						<Link to="/"><button className="btn btn-primary btn-block mb-4" type="submit">Sign up</button></Link>
+						<button className="btn btn-primary btn-block mb-4" type="button" onClick={signUp}>Sign up</button>
 					</div>
 
 					<div className="text-center">
-						<p>Already a member? <a href="/sign-in">Sign in</a></p>
+						<p>Already a member? <Link to="/sign-in">Sign in</Link></p>
 					</div>
 				</form>
 			</div>
@@ -87,6 +78,3 @@ export default function SignUp({ setToken }) {
 	);
 }
 
-SignUp.propTypes = {
-	setToken: PropsTypes.func.isRequired,
-};

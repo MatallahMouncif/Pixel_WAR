@@ -1,7 +1,12 @@
+/* eslint-disable */
 const bodyparser = require('body-parser');
 const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
+const passport = require('passport');
+const passportLocal = require('passport-local').Strategy;
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 const mongoString = require('./config/db.config');
 
 const pixelboards = require('./routes/pixelboards');
@@ -15,8 +20,22 @@ const PORT = 3003;
 
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
-app.use(cors());
-
+app.use(cors(
+	{
+		origin: 'http://localhost:3000',
+		credentials: true,
+		saveUninitialized: true,
+	}
+));
+app.use(session({
+	secret: 'secretcode',
+	resave: true,
+	saveUninitialized: false
+}));
+app.use(cookieParser('secretcode'));
+app.use(passport.initialize());
+app.use(passport.session());
+require('./config/auth.config')(passport);
 app.get('/', (req, res) => {
 	res.status(404).send('PixelWar Backend');
 });

@@ -1,3 +1,4 @@
+/* eslint-disable */
 const User = require('../models/user');
 
 const getUsers = () => new Promise((resolve, reject) => {
@@ -24,6 +25,14 @@ const getUser = (id) => new Promise((resolve, reject) => {
 	try {
 		const user = User.findById(id);
 
+		resolve(user);
+	} catch (error) {
+		reject(error);
+	}
+});
+const getUserByEmail = (email) => new Promise((resolve, reject) => {
+	try {
+		const user = User.findOne({ email: email });
 		resolve(user);
 	} catch (error) {
 		reject(error);
@@ -71,6 +80,7 @@ const deleteUser = (id) => new Promise((resolve, reject) => {
 module.exports.getUsers = getUsers;
 module.exports.countUsers = countUsers;
 module.exports.getUser = getUser;
+module.exports.getUserByEmail = getUserByEmail;
 module.exports.createUser = createUser;
 module.exports.updateUser = updateUser;
 module.exports.deleteUser = deleteUser;

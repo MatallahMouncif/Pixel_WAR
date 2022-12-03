@@ -13,12 +13,13 @@ const getUser = (body) => new Promise((resolve, reject) => {
 	}
 });
 
-const signUp = (name, email, password) => new Promise((resolve, reject) => {
+const signUp = (name, email, password, role) => new Promise((resolve, reject) => {
 	try {
 		const user = new User({
 			name,
 			email,
 			password,
+			role,
 		});
 
 		user.save();

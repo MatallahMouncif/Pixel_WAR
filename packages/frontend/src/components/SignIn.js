@@ -1,39 +1,28 @@
-import PropsTypes from 'prop-types';
 import React, { useState } from 'react';
-
+import axios from 'axios';
 import '../styles/SignIn.css';
+import { Link } from 'react-router-dom';
 
-async function signInUser(credentials) {
-	return fetch('http://localhost:3003/sign-in', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(credentials),
-	})
-		.then((data) => data.json());
-}
-
-export default function SignIn({ setToken }) {
+export default function SignIn() {
 	const [email, setEmail] = useState();
 	const [password, setPassword] = useState();
-
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-
-		const token = await signInUser({
-			email,
-			password,
-		});
-
-		setToken(token);
+	const signIn = () => {
+		axios({
+			method: 'post',
+			data: {
+				email,
+				password,
+			},
+			url: 'http://localhost:3003/sign-in',
+			withCredentials: true,
+		}).then(() => { window.location.href = '/'; }).catch((err) => { console.log(err); });
 	};
 
 	return (
 		<div className="sign-in-wrapper">
 			<div className="sign-in-inner">
 				<h2>Sign in</h2>
-				<form onSubmit={handleSubmit}>
+				<form>
 					<div>
 						<label className="form-label" htmlFor="email">Email</label>
 						<input
@@ -60,18 +49,14 @@ export default function SignIn({ setToken }) {
 					</div>
 					<br />
 					<div>
-						<a href="/"><button className="btn btn-primary btn-block mb-4" type="submit">Sign in</button></a>
+						<button className="btn btn-primary btn-block mb-4" type="button" onClick={signIn}>Sign in</button>
 					</div>
 
 					<div className="text-center">
-						<p>Not a member? <a href="/sign-up">Sign up</a></p>
+						<p>Not a member? <Link to="/sign-up">Sign up</Link></p>
 					</div>
 				</form>
 			</div>
 		</div>
 	);
 }
-
-SignIn.propTypes = {
-	setToken: PropsTypes.func.isRequired,
-};
