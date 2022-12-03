@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 const express = require('express');
 
 const router = express.Router();
@@ -16,17 +17,34 @@ router.get('/',
 
 		res.send(users);
 	});
-router.get('/me', (req, res) => {
-	if (req.isAuthenticated()) {
-		return res.status(200).json({ user: req.user });
-	}
 
-	return res.status(401).json({ message: 'Unauthorized' });
-});
+router.get('/me',
+	async (req, res) => {
+		try {
+			await userService.getUser(req.user.id.toString()).then((signedInUser) => {
+				if (req.isAuthenticated()) {
+					return res.status(200).json(
+						{
+							id: signedInUser.id,
+							name: signedInUser.name,
+							email: signedInUser.email,
+							role: signedInUser.role,
+						},
+					);
+				}
+
+				return res.status(401).json({ message: 'Unauthorized' });
+			});
+		} catch (err) {
+			return res.status(401).json({ message: 'Unauthorized' });
+		}
+	});
+
 router.get('/logout', (req, res) => {
 	req.session.destroy();
 	res.send('Logged out');
 });
+
 router.get('/count',
 	async (req, res) => {
 		const count = await userService.countUsers();
