@@ -13,10 +13,10 @@ import axios from 'axios';
 import { func } from 'prop-types';
 
 function HomeNavBar(props) {
-
 	useEffect(() => {
 
 	});
+
 	function logout() {
 		axios({
 			method: 'GET',
@@ -32,8 +32,8 @@ function HomeNavBar(props) {
 		);
 
 	}
+
 	function authButton() {
-		console.log(props.user);
 		if (!props.user) {
 			return (
 				<ButtonGroup>
@@ -41,11 +41,16 @@ function HomeNavBar(props) {
 					<Button variant="secondary" as={Link} to="/sign-up">Signup</Button>
 				</ButtonGroup>
 			)
-
 		} else {
-			return <Button variant="secondary" onClick={logout}>Logout</Button>
+			return (
+				<ButtonGroup>
+					<Button variant="secondary" as={Link} to="/profile">Profile</Button>
+					<Button variant="secondary" onClick={logout}>Logout</Button>
+				</ButtonGroup>
+			)
 		}
 	}
+
 	return (
 		<Navbar bg="light" expand="lg" id="homeNav">
 			<Container>
