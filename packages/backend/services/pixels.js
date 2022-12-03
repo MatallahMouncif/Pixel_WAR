@@ -12,11 +12,31 @@ const getMyPixels = (authorId) => new Promise((resolve, reject) => {
 
 const createPixel = (pixel) => new Promise((resolve, reject) => {
 	try {
-		const newPixel = new Pixel(pixel);
+		Pixel.findOne(
+			{
+				x: pixel.x,
+				y: pixel.y,
+				pixel_board_id: pixel.pixel_board_id,
+			},
+		).then((pixelToReplace) => {
+			if (pixelToReplace) {
+				Pixel.findOneAndUpdate(
+					{
+						x: pixel.x,
+						y: pixel.y,
+						pixel_board_id: pixel.pixel_board_id,
+					},
+					{ $set: { pixel } },
+					{ new: true },
+				).then((updatedPixel) => { resolve(updatedPixel); });
+			} else {
+				const newPixel = new Pixel(pixel);
 
-		newPixel.save();
+				newPixel.save();
 
-		resolve(newPixel);
+				resolve(newPixel);
+			}
+		});
 	} catch (error) {
 		reject(error);
 	}
