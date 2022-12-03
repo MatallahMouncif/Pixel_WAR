@@ -3,15 +3,15 @@ import React, { useState, useEffect } from 'react';
 import '../styles/BoardEditor.css';
 import { useParams, useNavigate } from 'react-router-dom';
 import 'toolcool-color-picker';
-import data from './boards.json';
 import 'bootstrap';
 import axios from 'axios';
 import { CirclePicker } from 'react-color';
 import { func } from 'prop-types';
-const BoardEditor = props => {
-	const [panelWidth, setPanelWidth] = useState(600);
-	const [panelHeight, setPanelHeight] = useState(600);
-	const [cellSideNumber, setCellSideNumber] = useState(50);
+function BoardEditor(props) {
+	const params = useParams();
+	const [panelWidth, setPanelWidth] = useState(0);
+	const [panelHeight, setPanelHeight] = useState(0);
+	const [cellSideNumber, setCellSideNumber] = useState(0);
 	const [cellSize, setCellSize] = useState(20);
 	const [editMode, setEditMode] = useState(false);
 	let [lastCell, setLastCell] = useState(null);
@@ -20,43 +20,57 @@ const BoardEditor = props => {
 	let [pixels, setPixels] = useState(null);
 	let [redirect, setRedirect] = useState(false);
 	const navigate = useNavigate();
-	const params = useParams();
+
 
 
 	function changeColor(color) {
 		if (lastCell !== null)
 			fillCellWithColor(lastCell.cellX, lastCell.cellY, lastCell.color);
 		setSelectedColor(color.hex);
+		console.log(selectedColor);
 	}
 	useEffect(() => {
 		const canvas = document.getElementById('boardCanvas');
-		canvas.width = panelWidth;
-		canvas.height = panelHeight;
-		const ctx = canvas.getContext('2d');
-		ctx.fillStyle = '#ffffff';
-		ctx.fillRect(0, 0, panelWidth, panelHeight);
 		const grid = document.getElementById('grid');
 		const gridCtx = grid.getContext('2d');
-		gridCtx.canvas.width = panelWidth;
-		gridCtx.canvas.height = panelHeight;
-		drawGrid(ctx);
-		axios.get('http://localhost:3003/pixelboards/' + params.id + "/pixels").then((response) => {
-			setPixels(response.data);
-			console.log(response.data);
-			response.data.forEach(pixel => {
-				fillCellWithColor(pixel.x, pixel.y, pixel.color);
-			});
+		axios.get('http://localhost:3003/pixelBoards/' + params.id).then((res) => {
+			console.log(res.data.size * 20);
+			canvas.width = res.data.size * 20;
+			canvas.height = res.data.size * 20;
+			const ctx = canvas.getContext('2d');
+			ctx.fillStyle = '#ffffff';
+			ctx.fillRect(0, 0, canvas.width, canvas.height);
+			gridCtx.canvas.width = canvas.width;
+			gridCtx.canvas.height = canvas.height;
+			drawGrid(ctx, res.data.size * 20);
+			axios.get('http://localhost:3003/pixelboards/' + params.id + "/pixels").then((response) => {
+				setPixels(response.data);
+				console.log(response.data);
+				response.data.forEach(pixel => {
+					fillCellWithColor(pixel.x, pixel.y, pixel.color);
+				});
 
-		});
+			});
+		})
+		// canvas.width = panelWidth;
+		// canvas.height = panelHeight;	
+		// ctx.fillStyle = '#ffffff';
+		// ctx.fillRect(0, 0, panelWidth, panelHeight);
+
+		// gridCtx.canvas.width = panelWidth;
+		// gridCtx.canvas.height = panelHeight;
+		// drawGrid(ctx);
+
 	}, []);
-	function drawGrid(ctx) {
-		for (let x = 0; x <= panelWidth; x += 20) {
-			for (let y = 0; y <= panelHeight; y += 20) {
+	function drawGrid(ctx, size) {
+
+		for (let x = 0; x <= size; x += 20) {
+			for (let y = 0; y <= size; y += 20) {
 				ctx.moveTo(x, 0);
-				ctx.lineTo(x, panelHeight);
+				ctx.lineTo(x, size);
 				ctx.stroke();
 				ctx.moveTo(0, y);
-				ctx.lineTo(panelWidth, y);
+				ctx.lineTo(size, y);
 				ctx.stroke();
 			}
 		}
@@ -83,7 +97,7 @@ const BoardEditor = props => {
 		document.getElementById('cellX').textContent = "Cell X : " + cellX;
 		document.getElementById('cellY').textContent = "Cell Y : " + cellY;
 		document.getElementById('cellColor').textContent = "Cell Color : " + currentColor;
-		// saving in db
+
 	}
 	function setLastColor(cellX, cellY) {
 		for (let i = 0; i < pixels.length; i++) {
@@ -111,11 +125,26 @@ const BoardEditor = props => {
 	function updateBoard() {
 		const canvas = document.getElementById('boardCanvas');
 		const img = canvas.toDataURL('image/png');
-		const id = 3;
 		axios.patch('http://localhost:3003/pixelboards/' + params.id + "/patch", {
 			thumbnail: img
-		}).then(() => { navigate("/"); });
-		console.log(currentCell);
+		}).then(() => { });
+		axios(
+			{
+				method: 'post',
+				url: 'http://localhost:3003/pixels/',
+				data: {
+					last_update: new Date().getTime(),
+					color: selectedColor,
+					x: currentCell.cellX,
+					y: currentCell.cellY,
+					author_id: sessionStorage.getItem('user_id'),
+					pixel_board_id: params.id.toString()
+				},
+				withCredentials: true
+			}
+		).then((res) => { setEditMode(false) }).catch((error) => {
+			console.log(error);
+		});
 	}
 	return (
 		<>

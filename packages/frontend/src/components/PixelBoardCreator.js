@@ -12,7 +12,7 @@ export default function PixelBoard() {
 	const [time, setTime] = useState();
 	const [endDate, setEtime] = useState();
 	useEffect(() => {
-		setAuthor(JSON.parse(sessionStorage.getItem('user')));
+		setAuthor(sessionStorage.getItem('user_id'));
 	}, []);
 
 	function pixelBoardCreatorBack() {
@@ -29,7 +29,7 @@ export default function PixelBoard() {
 					creation_date: creationDate,
 					size: pixel,
 					end_date: endDate,
-					author_id: author.user.id,
+					author_id: author,
 					override_available: epixel,
 					user_delay: time,
 				},
