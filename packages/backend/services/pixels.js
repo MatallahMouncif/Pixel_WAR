@@ -12,6 +12,7 @@ const getMyPixels = (authorId) => new Promise((resolve, reject) => {
 
 const createPixel = (pixel) => new Promise((resolve, reject) => {
 	try {
+		//console.log('pixel', pixel);
 		Pixel.findOne(
 			{
 				x: pixel.x,
@@ -20,13 +21,18 @@ const createPixel = (pixel) => new Promise((resolve, reject) => {
 			},
 		).then((pixelToReplace) => {
 			if (pixelToReplace) {
+				const filter = {
+					x: pixel.x,
+					y: pixel.y,
+					pixel_board_id: pixel.pixel_board_id,
+				};
+				const update = {
+					color: pixel.color,
+					last_update: pixel.last_update,
+				};
 				Pixel.findOneAndUpdate(
-					{
-						x: pixel.x,
-						y: pixel.y,
-						pixel_board_id: pixel.pixel_board_id,
-					},
-					{ $set: { pixel } },
+					filter,
+					update,
 					{ new: true },
 				).then((updatedPixel) => { resolve(updatedPixel); });
 			} else {
