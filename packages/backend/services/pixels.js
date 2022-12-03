@@ -1,4 +1,5 @@
 const Pixel = require('../models/pixel');
+const Pixelboard = require('../models/pixelboard');
 
 const getMyPixels = (authorId) => new Promise((resolve, reject) => {
 	try {
@@ -19,23 +20,37 @@ const createPixel = (pixel) => new Promise((resolve, reject) => {
 				pixel_board_id: pixel.pixel_board_id,
 			},
 		).then((pixelToReplace) => {
-			if (pixelToReplace) {
-				Pixel.findOneAndUpdate(
-					{
-						x: pixel.x,
-						y: pixel.y,
-						pixel_board_id: pixel.pixel_board_id,
-					},
-					{ $set: { pixel } },
-					{ new: true },
-				).then((updatedPixel) => { resolve(updatedPixel); });
-			} else {
-				const newPixel = new Pixel(pixel);
+			Pixelboard.findOne(
+				{ _id: pixel.pixel_board_id },
+			).then((pixelboard) => {
+				const pixelboardCooldown = pixelboard.user_delay;
+				const pixelboardOverride = pixelboard.override_available;
+				const dateNow = Date.now();
 
-				newPixel.save();
+				if (pixel.last_update + pixelboardCooldown < dateNow) {
+					reject(new Error('Pixelboard cooldown not over'));
+				} else if (pixelToReplace) {
+					if (pixelboardOverride) {
+						reject(new Error('Pixelboard override not available'));
+					}
 
-				resolve(newPixel);
-			}
+					Pixel.findOneAndUpdate(
+						{
+							x: pixel.x,
+							y: pixel.y,
+							pixel_board_id: pixel.pixel_board_id,
+						},
+						{ $set: { pixel } },
+						{ new: true },
+					).then((updatedPixel) => { resolve(updatedPixel); });
+				} else {
+					const newPixel = new Pixel(pixel);
+
+					newPixel.save();
+
+					resolve(newPixel);
+				}
+			});
 		});
 	} catch (error) {
 		reject(error);
