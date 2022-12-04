@@ -64,8 +64,8 @@ const PixelBoards = () => {
 							<img src={board.thumbnail} style={board.status === 'in Progress' ? { border: '3px solid green' } : { border: '3px solid red' }} />
 						</Link>
 						<div className="boarddesc">{board.title}</div>
-						<div className="boarddesc">Creation date : {board.creation_date}</div>
-						<div className="boarddesc">End date : {board.end_date}</div>
+						<div className="boarddesc">Creation date : {new Date(board.creation_date).toLocaleString('fr-FR')}</div>
+						<div className="boarddesc">End date : {new Data(board.end_date).toLocaleString('fr-FR')}</div>
 						<div className="boarddesc">Status : {board.status}</div>
 						{sessionStorage.getItem('user_role') === '0'
 							? (
