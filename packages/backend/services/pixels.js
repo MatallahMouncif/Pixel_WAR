@@ -1,3 +1,4 @@
+/* eslint-disable */
 const Pixel = require('../models/pixel');
 const Pixelboard = require('../models/pixelboard');
 
@@ -10,50 +11,73 @@ const getMyPixels = (authorId) => new Promise((resolve, reject) => {
 		reject(error);
 	}
 });
-
+const checkCooldown = (pid, aid, lastUpdate, cooldown) => new Promise((resolve, reject) => {
+	const filter = {
+		pixel_board_id: pid,
+		author_id: aid,
+	};
+	Pixel.find(filter).sort({ last_update: -1 }).then((lastPixel) => {
+		if (lastPixel.length === 0) {
+			resolve(false)
+		}
+		const lastPixelUpdate = lastPixel[0].last_update;
+		console.log(lastPixelUpdate, lastUpdate, cooldown);
+		console.log(lastUpdate - lastPixelUpdate > cooldown);
+		if (lastUpdate - lastPixelUpdate > cooldown) {
+			resolve(false);
+		}
+		else
+			resolve(true);
+	});
+}
+);
 const createPixel = (pixel) => new Promise((resolve, reject) => {
 	try {
-		//console.log('pixel', pixel);
-		Pixel.findOne(
-			{
-				x: pixel.x,
-				y: pixel.y,
-				pixel_board_id: pixel.pixel_board_id,
-			},
-		).then((pixelToReplace) => {
-			Pixelboard.findOne(
-				{ _id: pixel.pixel_board_id },
-			).then((pixelboard) => {
-				const pixelboardCooldown = pixelboard.user_delay;
-				const pixelboardOverride = pixelboard.override_available;
-				const dateNow = Date.now();
-
-				if (pixel.last_update + pixelboardCooldown < dateNow) {
-					reject(new Error('Pixelboard cooldown not over'));
-				} else if (pixelToReplace) {
-					if (pixelboardOverride) {
-						reject(new Error('Pixelboard override not available'));
-					}
-					const filter = {
-						x: pixel.x,
-						y: pixel.y,
-						pixel_board_id: pixel.pixel_board_id,
-					};
-					const update = {
-						color: pixel.color,
-						last_update: pixel.last_update,
-					};
-					Pixel.findOneAndUpdate(
-						filter,
-						update,
-						{ new: true },
-					).then((updatedPixel) => { resolve(updatedPixel); });
-				} else {
-					const newPixel = new Pixel(pixel);
-
-					newPixel.save();
-
-					resolve(newPixel);
+		Pixelboard.findOne({ _id: pixel.pixel_board_id }).then((pixelboard) => {
+			checkCooldown(pixelboard._id, pixel.author_id, pixel.last_update, pixelboard.user_delay).then((unauthorised) => {
+				if (unauthorised) {
+					console.log('Cant draw yet');
+					resolve(false);
+				}
+				else {
+					console.log('Can draw yet');
+					Pixel.findOne(
+						{
+							x: pixel.x,
+							y: pixel.y,
+							pixel_board_id: pixel.pixel_board_id,
+						},
+					).then((foundPixel) => {
+						if (foundPixel) {
+							Pixelboard.findOne(
+								{ _id: pixel.pixel_board_id },
+							).then((foundPixelboard) => {
+								const pixelboardOverride = foundPixelboard.override_available;
+								if (pixelboardOverride === true) {
+									const filter = {
+										x: pixel.x,
+										y: pixel.y,
+										pixel_board_id: pixel.pixel_board_id,
+									};
+									const update = {
+										color: pixel.color,
+										last_update: pixel.last_update,
+									};
+									Pixel.findOneAndUpdate(
+										filter,
+										update,
+										{ new: true },
+									).then((updatedPixel) => resolve(updatedPixel));
+								} else {
+									resolve(false);
+								}
+							});
+						} else {
+							const newPixel = new Pixel(pixel);
+							newPixel.save();
+							resolve(newPixel);
+						}
+					});
 				}
 			});
 		});
