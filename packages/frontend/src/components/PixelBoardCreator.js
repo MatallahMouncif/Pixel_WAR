@@ -31,7 +31,7 @@ export default function PixelBoard() {
 					end_date: endDate,
 					author_id: author,
 					override_available: epixel,
-					user_delay: time,
+					user_delay: time * 1000,
 				},
 			}).then((res) => {
 				console.log(res);

@@ -19,9 +19,12 @@ router.get('/author/:author_id',
 
 router.post('/',
 	async (req, res) => {
-		const createdPixel = await pixelService.createPixel(req.body);
-
-		res.send(createdPixel);
+		const myPixel = await pixelService.createPixel(req.body);
+		if (myPixel === false) {
+			res.status(404).send('Cant draw yet');
+		} else {
+			res.send(myPixel);
+		}
 	});
 
 router.put('/:id',

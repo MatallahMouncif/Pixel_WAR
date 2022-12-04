@@ -125,9 +125,7 @@ function BoardEditor(props) {
 	function updateBoard() {
 		const canvas = document.getElementById('boardCanvas');
 		const img = canvas.toDataURL('image/png');
-		axios.patch('http://localhost:3003/pixelboards/' + params.id + "/patch", {
-			thumbnail: img
-		}).then(() => { });
+
 		axios(
 			{
 				method: 'post',
@@ -142,7 +140,14 @@ function BoardEditor(props) {
 				},
 				withCredentials: true
 			}
-		).then((res) => { setEditMode(false) }).catch((error) => {
+		).then((res) => {
+			if (res.status == 200) {
+				axios.patch('http://localhost:3003/pixelboards/' + params.id + "/patch", {
+					thumbnail: img
+				});
+			}
+			setEditMode(false)
+		}).catch((error) => {
 			console.log(error);
 		});
 	}
