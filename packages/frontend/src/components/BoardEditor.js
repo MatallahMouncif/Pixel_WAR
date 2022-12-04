@@ -28,7 +28,6 @@ function BoardEditor() {
 		status: '',
 		user_delay: '',
 		author_id: '',
-		visitor_allowed: [],
 	});
 	function drawGrid(ctx, size) {
 		for (let x = 0; x <= size; x += 20) {
@@ -180,7 +179,6 @@ function BoardEditor() {
 					<p className="fs-4">Creation date : <strong>{board.creation_date}</strong></p>
 					<p className="fs-4">End date : <strong>{board.end_date}</strong></p>
 					<p className="fs-4">Size : <strong>{board.size}</strong></p>
-					<p className="fs-4">Visitor allowed : <strong>{board.visitor_allowed ? 'Yes' : 'No'}</strong></p>
 					<p className="fs-4">Cooldown : <strong>{Math.floor(board.user_delay / 1000)} S</strong></p>
 					<p className="fs-4">Replace Pixel : <strong>{board.override_available ? 'Yes' : 'No'}</strong></p>
 
