@@ -50,7 +50,8 @@ Git : version non pertinente
 -
 
 ## Djalil Moussa
--
+- Frontend : Home (PixelBoards), PixelBoard Editor, HomeNavBar, App (Router)
+- Backend : Passport auth, Add Pixel (avec l'option override)
 
 ## Mouncif Matallah
 -
