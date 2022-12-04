@@ -1,16 +1,12 @@
 # Présentation du projet
 
-Ce projet consiste à creer et mettre en place une application Pixel Art 
+Ce projet consiste à créer et mettre en place une application Pixel Art 
 à l'aide du framework web React, un serveur NodeJS ainsi qu'une
 base de donnée Mongo.
 <br><br>
-L'objectif est de creer une application fiable, avec une architecture
+L'objectif est de créer une application fiable, avec une architecture
 de transfère de données cohérente ainsi qu'une gestion de compte utilisateur
 et de droit d'accès.
-<br><br>
-En effet, un visiteur peut uniquement visualiser les pixelboards.<br>
-Un utilisateur authentifié peut modifier un pixelboard.
-Un admin peut creer des pixelboards.
 
 # Installation
 
