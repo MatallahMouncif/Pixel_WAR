@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 
 import './styles/App.css';
+import './styles/themes.css';
 
 import axios from 'axios';
 import SignIn from './components/SignIn';

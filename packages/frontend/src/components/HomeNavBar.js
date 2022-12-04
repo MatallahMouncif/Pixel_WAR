@@ -13,9 +13,19 @@ import axios from 'axios';
 import { func } from 'prop-types';
 
 function HomeNavBar(props) {
-	useEffect(() => {
+	const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+	const toggleTheme = () => {
+		if (theme === 'light') {
+			setTheme('dark');
+		} else {
+			setTheme('light');
+		}
+	};
 
-	});
+	useEffect(() => {
+		localStorage.setItem('theme', theme);
+		document.body.className = theme;
+	}, [theme]);
 
 	function logout() {
 		axios({
@@ -30,29 +40,28 @@ function HomeNavBar(props) {
 			console.log(err);
 		}
 		);
-
 	}
 
 	function authButton() {
 		if (!props.user) {
 			return (
 				<ButtonGroup>
-					<Button variant="secondary" as={Link} to="/sign-in">Login</Button>
-					<Button variant="secondary" as={Link} to="/sign-up">Signup</Button>
+					<Button variant={theme} as={Link} to="/sign-in">Login</Button>
+					<Button variant={theme} as={Link} to="/sign-up">Signup</Button>
 				</ButtonGroup>
 			)
 		} else {
 			return (
 				<ButtonGroup>
-					<Button variant="secondary" as={Link} to="/profile">Profile</Button>
-					<Button variant="secondary" onClick={logout}>Logout</Button>
+					<Button variant={theme} as={Link} to="/profile">Profile</Button>
+					<Button variant={theme} onClick={logout}>Logout</Button>
 				</ButtonGroup>
 			)
 		}
 	}
 
 	return (
-		<Navbar bg="light" expand="lg" id="homeNav">
+		<Navbar bg={theme} variant={theme} expand="lg" id="homeNav">
 			<Container>
 				<Navbar.Brand href="/">Pixel War</Navbar.Brand>
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -75,6 +84,16 @@ function HomeNavBar(props) {
 					<div className='mx-3'>
 						{authButton()}
 					</div>
+					<span>☀️</span>
+					<label className="toggle-theme">
+						{
+							theme === 'light'
+								? <input className="toggle-checkbox" id="switch" type="checkbox" onChange={toggleTheme} />
+								: <input className="toggle-checkbox" id="switch" type="checkbox" onChange={toggleTheme} checked />
+						}
+						<div className="toggle-switch" />
+					</label>
+					<span>🌒</span>
 				</Navbar.Collapse>
 			</Container>
 		</Navbar>

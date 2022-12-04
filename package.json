@@ -19,5 +19,8 @@
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-react": "7.31.10",
     "eslint-plugin-react-hooks": "^4.1.2"
+  },
+  "dependencies": {
+    "bootstrap4-toggle": "^3.6.1"
   }
 }
