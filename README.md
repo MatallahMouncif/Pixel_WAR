@@ -32,7 +32,7 @@ Listening ports:
 
 Version de React : 18.2.0
 
-NodeJS : 16
+NodeJS : ^16
 
 NPM : ^8.13.2
 
