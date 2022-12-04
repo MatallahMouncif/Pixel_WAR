@@ -58,11 +58,13 @@ Git : version non pertinente
 
 ## Djalil Moussa
 - Frontend : 
-  - Home (PixelBoards)
+  - Home (Affichage des PixelBoard)
   - PixelBoard Editor
   - HomeNavBar
   - App (Router)
   - Gestions des roles
+  - Export PNG
+  - Ajout d'un Pixel (avec vérification de la posibilité) 
 - Backend : 
   - Passport auth
   - Add Pixel (avec l'option override)
