@@ -23,7 +23,7 @@ export default function Profile() {
 		});
 
 		axios.get(myPixelsUrl).then((res) => {
-			setMyPixels(res.data.length);
+			setMyPixels(res.data);
 		}, (err) => {
 			console.log(err);
 		});
@@ -162,7 +162,7 @@ export default function Profile() {
 				}}
 				>
 					<div className="badge bg-primary text-wrap" style={{ width: `${26}rem` }}>
-						<p style={{ textAlign: 'center' }} className="fs-4">Total number of pixels placed: {myPixels}</p>
+						<p style={{ textAlign: 'center' }} className="fs-4">Total number of pixels placed: {myPixels.length}</p>
 					</div>
 				</div>
 				<div className="pixelBoardsGallery">
@@ -181,6 +181,43 @@ export default function Profile() {
 							<div className="boarddesc">Status : {pixelboard.status}</div>
 						</div>
 					))}
+				</div>
+				<div className="contributions">
+					<h3>Contributions</h3>
+					<div className="contributionsGallery">
+						<div className="contributions-container">
+							<table className="table table-striped">
+								<thead>
+									<tr>
+										<th scope="col">#</th>
+										<th scope="col">X</th>
+										<th scope="col">Y</th>
+										<th scope="col">Color</th>
+										<th scope="col">Last update</th>
+									</tr>
+								</thead>
+								<tbody>
+									{myPixels && myPixels.map((pixel) => (
+										<tr key={pixel._id}>
+											<th scope="row">
+												<Link to={{
+													pathname: `/pixelBoards/${pixel.pixel_board_id}`,
+													id: pixel.pixel_board_id,
+												}}
+												>
+													{pixel._id}
+												</Link>
+											</th>
+											<td>{pixel.x}</td>
+											<td>{pixel.y}</td>
+											<td>{pixel.color}</td>
+											<td>{new Date(pixel.last_update).toLocaleString()}</td>
+										</tr>
+									))}
+								</tbody>
+							</table>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
