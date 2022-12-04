@@ -73,6 +73,27 @@ router.put('/:id/update',
 		res.send(updatedUser);
 	});
 
+router.patch('/:id/update/name',
+	async (req, res) => {
+		const updatedUser = await userService.updateUserName(req.params.id, req.body);
+
+		res.send(updatedUser);
+	});
+
+router.patch('/:id/update/email',
+	async (req, res) => {
+		const updatedUser = await userService.updateUserEmail(req.params.id, req.body);
+
+		res.send(updatedUser);
+	});
+
+router.patch('/:id/update/password',
+	async (req, res) => {
+		const updatedUser = await userService.updateUserPassword(req.params.id, req.body);
+
+		res.send(updatedUser);
+	});
+
 router.delete('/:id/delete',
 	async (req, res) => {
 		const deletedUser = await userService.deleteUser(req.params.id);

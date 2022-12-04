@@ -1,4 +1,5 @@
-/* eslint-disable */
+const bcrypt = require('bcryptjs');
+
 const User = require('../models/user');
 
 const getUsers = () => new Promise((resolve, reject) => {
@@ -32,7 +33,7 @@ const getUser = (id) => new Promise((resolve, reject) => {
 });
 const getUserByEmail = (email) => new Promise((resolve, reject) => {
 	try {
-		const user = User.findOne({ email: email });
+		const user = User.findOne({ email });
 		resolve(user);
 	} catch (error) {
 		reject(error);
@@ -65,6 +66,98 @@ const updateUser = (id, user) => new Promise((resolve, reject) => {
 	}
 });
 
+const updateUserName = (id, name) => new Promise((resolve, reject) => {
+	try {
+		User.findOne(
+			{ _id: id },
+		).then((user) => {
+			if (user) {
+				const filter = {
+					_id: id,
+				};
+
+				const update = {
+					name: name.name,
+				};
+
+				User.findOneAndUpdate(
+					filter,
+					update,
+					{ new: true },
+				).then((updatedUser) => {
+					resolve(updatedUser);
+				});
+			} else {
+				resolve(false);
+			}
+		});
+	} catch (error) {
+		reject(error);
+	}
+});
+
+const updateUserEmail = (id, email) => new Promise((resolve, reject) => {
+	try {
+		User.findOne(
+			{ _id: id },
+		).then((user) => {
+			if (user) {
+				const filter = {
+					_id: id,
+				};
+
+				const update = {
+					email: email.email,
+				};
+
+				User.findOneAndUpdate(
+					filter,
+					update,
+					{ new: true },
+				).then((updatedUser) => {
+					resolve(updatedUser);
+				});
+			} else {
+				resolve(false);
+			}
+		});
+	} catch (error) {
+		reject(error);
+	}
+});
+
+const updateUserPassword = (id, password) => new Promise((resolve, reject) => {
+	try {
+		User.findOne(
+			{ _id: id },
+		).then((user) => {
+			if (user) {
+				const filter = {
+					_id: id,
+				};
+
+				const newPassword = bcrypt.hashSync(password.password, 10);
+
+				const update = {
+					password: newPassword,
+				};
+
+				User.findOneAndUpdate(
+					filter,
+					update,
+					{ new: true },
+				).then((updatedUser) => {
+					resolve(updatedUser);
+				});
+			} else {
+				resolve(false);
+			}
+		});
+	} catch (error) {
+		reject(error);
+	}
+});
+
 const deleteUser = (id) => new Promise((resolve, reject) => {
 	try {
 		const removedUser = User.findOneAndDelete(
@@ -83,4 +176,7 @@ module.exports.getUser = getUser;
 module.exports.getUserByEmail = getUserByEmail;
 module.exports.createUser = createUser;
 module.exports.updateUser = updateUser;
+module.exports.updateUserName = updateUserName;
+module.exports.updateUserEmail = updateUserEmail;
+module.exports.updateUserPassword = updateUserPassword;
 module.exports.deleteUser = deleteUser;

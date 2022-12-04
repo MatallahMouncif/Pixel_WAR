@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import '../styles/SignIn.css';
+import '../styles/Profile.css';
 import { Link } from 'react-router-dom';
 
 export default function Profile() {
@@ -29,6 +29,78 @@ export default function Profile() {
 		});
 	}, []);
 
+	function updateName() {
+		const updateNameUrl = `http://localhost:3003/users/${sessionStorage.getItem('user_id')}/update/name`;
+
+		axios(
+			{
+				method: 'patch',
+				url: updateNameUrl,
+				data: {
+					name,
+				},
+				withCredentials: true,
+			},
+		).then((res) => {
+			setName(res.data.name);
+
+			document.getElementById('name').value = '';
+			document.getElementById('name').placeholder = res.data.name;
+
+			alert(`Name updated successfully: ${res.data.name}`);
+		}, (err) => {
+			console.log(err);
+		});
+	}
+
+	function updateEmail() {
+		const updateNameUrl = `http://localhost:3003/users/${sessionStorage.getItem('user_id')}/update/email`;
+
+		axios(
+			{
+				method: 'patch',
+				url: updateNameUrl,
+				data: {
+					email,
+				},
+				withCredentials: true,
+			},
+		).then((res) => {
+			setEmail(res.data.email);
+
+			document.getElementById('email').value = '';
+			document.getElementById('email').placeholder = res.data.email;
+
+			alert(`Email updated successfully: ${res.data.email}`);
+		}, (err) => {
+			console.log(err);
+		});
+	}
+
+	function updatePassword() {
+		const updatePasswordUrl = `http://localhost:3003/users/${sessionStorage.getItem('user_id')}/update/password`;
+
+		axios(
+			{
+				method: 'patch',
+				url: updatePasswordUrl,
+				data: {
+					password,
+				},
+				withCredentials: true,
+			},
+		).then((res) => {
+			setPassword(res.data.password);
+
+			document.getElementById('password').value = '';
+			document.getElementById('password').placeholder = 'new password';
+
+			alert('Password updated successfully');
+		}, (err) => {
+			console.log(err);
+		});
+	}
+
 	return (
 		<div className="profile-wrapper">
 			<div className="profile-inner">
@@ -36,9 +108,10 @@ export default function Profile() {
 
 				<div>
 					<label className="form-label" htmlFor="name">Name</label>
+					<br />
 					<input
 						id="name"
-						className="form-control"
+						className="form-control inline"
 						name="name"
 						onChange={(e) => setName(e.target.value)}
 						type="text"
@@ -46,12 +119,14 @@ export default function Profile() {
 						placeholder={sessionStorage.getItem('user_name')}
 						required
 					/>
+					<button type="button" className="btn btn-primary inline" onClick={updateName}>Update</button>
 				</div>
 				<div>
 					<label className="form-label" htmlFor="email">Email</label>
+					<br />
 					<input
 						id="email"
-						className="form-control"
+						className="form-control inline"
 						name="email"
 						onChange={(e) => setEmail(e.target.value)}
 						type="email"
@@ -59,12 +134,14 @@ export default function Profile() {
 						placeholder={sessionStorage.getItem('user_email')}
 						required
 					/>
+					<button type="button" className="btn btn-primary inline" onClick={updateEmail}>Update</button>
 				</div>
 				<div>
 					<label className="form-label" htmlFor="password">Password</label>
+					<br />
 					<input
 						id="password"
-						className="form-control"
+						className="form-control inline"
 						name="password"
 						onChange={(e) => setPassword(e.target.value)}
 						style={{ width: '20%' }}
@@ -72,9 +149,10 @@ export default function Profile() {
 						placeholder="new password"
 						required
 					/>
-
+					<button type="button" className="btn btn-primary inline" onClick={updatePassword}>Update</button>
 				</div>
 			</div>
+			<br />
 			<div>
 				<div style={{
 					display: 'flex',
