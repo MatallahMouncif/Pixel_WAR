@@ -196,17 +196,20 @@ function BoardEditor() {
 								<canvas id="boardCanvas" onMouseDown={handleCanvasMousedown} ref={panelRef} />
 
 							</div>
-							<div className="pixelInfo">
-								<label>Pick a color : &nbsp;</label>
-								<CirclePicker color={selectedColor} onChangeComplete={changeColor} id="colorPicker" />
-								<p id="cellX" />
-								<p id="cellY" />
-								<p id="cellColor" />
-								{sessionStorage.getItem('user_id') !== null
-									? <button className="btn btn-success" type="button" onClick={updateBoard}>SAVE PIXEL</button> : <h2>Sign In to draw a pixel !</h2>}
-								<button className="btn btn-success" type="button" onClick={() => exportComponentAsPNG(panelRef)}>EXPORT TO PNG</button>
+							{board.end_date > new Date().toLocaleDateString('fr-FR')
+								? (
+									<div className="pixelInfo">
+										<label>Pick a color : &nbsp;</label>
+										<CirclePicker color={selectedColor} onChangeComplete={changeColor} id="colorPicker" />
+										<p id="cellX" />
+										<p id="cellY" />
+										<p id="cellColor" />
+										{sessionStorage.getItem('user_id') !== null
+											? <><button className="btn btn-success" type="button" onClick={updateBoard}>SAVE PIXEL</button><button className="btn btn-success" type="button" onClick={() => exportComponentAsPNG(panelRef)}>EXPORT TO PNG</button></> : <h2>Sign In to draw a pixel !</h2>}
 
-							</div>
+									</div>
+								)
+								: <h2>PixelBoard is closed</h2>}
 
 						</>
 					)
@@ -218,11 +221,15 @@ function BoardEditor() {
 								<canvas id="boardCanvas" ref={panelRef} />
 
 							</div>
-							<div className="pixelInfo">
-								{sessionStorage.getItem('user_id') !== null
-									? <button className="btn btn-success" style={{ margin: '15px' }} type="button" onClick={switchEditMode}>DRAW PIXEL</button> : <h2>Sign In to draw a pixel !</h2>}
-								<button className="btn btn-success" type="button" onClick={() => exportComponentAsPNG(panelRef)}>Export to PNG</button>
-							</div>
+							{board.end_date > new Date().toLocaleDateString('fr-FR')
+								? (
+									<div className="pixelInfo">
+										{sessionStorage.getItem('user_id') !== null
+											? <><button className="btn btn-success" style={{ margin: '15px' }} type="button" onClick={switchEditMode}>DRAW PIXEL</button><button className="btn btn-success" type="button" onClick={() => exportComponentAsPNG(panelRef)}>Export to PNG</button></> : <h2>Sign In to draw a pixel !</h2>}
+
+									</div>
+								)
+								: <h2>PixelBoard is closed</h2>}
 
 						</>
 					)}
