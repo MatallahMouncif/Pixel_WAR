@@ -1,9 +1,16 @@
-/* eslint-disable */
+/* eslint-disable react-hooks/exhaustive-deps*/
+/* eslint-disable prefer-const */
+/* eslint-disable no-lone-blocks */
+/* eslint-disable object-shorthand */
+/*eslint-disable no-unused-vars */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/prop-types */
 import PropsTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/SignUp.css';
+
 export default function SignUp() {
 	const [pseudo, setPseudo] = useState();
 	const [email, setEmail] = useState();
@@ -20,7 +27,11 @@ export default function SignUp() {
 				role: 1,
 			},
 			withCredentials: true,
-		}).then((res) => { { navigate("/sign-in"); } });
+		}).then((res) => {
+			{
+				navigate('/sign-in');
+			}
+		});
 	};
 
 	return (
@@ -29,7 +40,9 @@ export default function SignUp() {
 				<h2>Sign Up</h2>
 				<form>
 					<div>
-						<label className="form-label" htmlFor="pseudo">Pseudo</label>
+						<label className="form-label" htmlFor="pseudo">
+							Pseudo
+						</label>
 						<input
 							id="pseudo"
 							className="form-control"
@@ -41,7 +54,9 @@ export default function SignUp() {
 						/>
 					</div>
 					<div>
-						<label className="form-label" htmlFor="email">Email</label>
+						<label className="form-label" htmlFor="email">
+							Email
+						</label>
 						<input
 							id="email"
 							className="form-control"
@@ -53,7 +68,9 @@ export default function SignUp() {
 						/>
 					</div>
 					<div>
-						<label className="form-label" htmlFor="password">Password</label>
+						<label className="form-label" htmlFor="password">
+							Password
+						</label>
 						<input
 							id="password"
 							className="form-control"
@@ -65,21 +82,30 @@ export default function SignUp() {
 						/>
 					</div>
 					<br />
-					<div style={{
-						display: "flex",
-						justifyContent: "center",
-						alignItems: "center",
-						flexDirection: "column",
-					}}>
-						<button className="btn btn-primary btn-block mb-4" type="button" onClick={signUp}>Sign up</button>
+					<div
+						style={{
+							display: 'flex',
+							justifyContent: 'center',
+							alignItems: 'center',
+							flexDirection: 'column',
+						}}
+					>
+						<button
+							className="btn btn-primary btn-block mb-4"
+							type="button"
+							onClick={signUp}
+						>
+							Sign up
+						</button>
 					</div>
 
 					<div className="text-center">
-						<p>Already a member? <Link to="/sign-in">Sign In</Link></p>
+						<p>
+							Already a member? <Link to="/sign-in">Sign In</Link>
+						</p>
 					</div>
 				</form>
 			</div>
 		</div>
 	);
 }
-
