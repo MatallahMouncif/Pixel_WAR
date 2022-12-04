@@ -68,7 +68,6 @@ function HomeNavBar(props) {
 				<Navbar.Collapse id="basic-navbar-nav">
 					<Nav className="me-auto">
 						<Nav.Link href="/">Home</Nav.Link>
-						<Nav.Link href="/pixelBoards">Pixel Boards</Nav.Link>
 						<NavDropdown title="Profile" id="basic-nav-dropdown">
 							<NavDropdown.Item href="#action/3.1">
 								Settings
