@@ -31,26 +31,6 @@ const getPixelboard = (id) => new Promise((resolve, reject) => {
 	}
 });
 
-const getInProgressPixelboards = () => new Promise((resolve, reject) => {
-	try {
-		const pixelboards = Pixelboard.find({ status: 'inProgress' });
-
-		resolve(pixelboards);
-	} catch (error) {
-		reject(error);
-	}
-});
-
-const getFinishedPixelboards = () => new Promise((resolve, reject) => {
-	try {
-		const pixelboards = Pixelboard.find({ status: 'finished' });
-
-		resolve(pixelboards);
-	} catch (error) {
-		reject(error);
-	}
-});
-
 const getRemainingTime = (id) => new Promise((resolve, reject) => {
 	try {
 		Pixelboard.findById(id).exec().then((pixelboard) => {
@@ -144,8 +124,6 @@ const getPixelList = (_id) => new Promise((resolve, reject) => {
 module.exports.getPixelboards = getPixelboards;
 module.exports.countPixelboards = countPixelboards;
 module.exports.getPixelboard = getPixelboard;
-module.exports.getInProgressPixelboards = getInProgressPixelboards;
-module.exports.getFinishedPixelboards = getFinishedPixelboards;
 module.exports.getRemainingTime = getRemainingTime;
 module.exports.getMyPixelboards = getMyPixelboards;
 module.exports.createPixelboard = createPixelboard;

@@ -19,7 +19,7 @@ export default function SignIn() {
 	};
 
 	return (
-		<div className="sign-in-wrapper">
+		<div className="sign-in-wrapper mt-5">
 			<div className="sign-in-inner">
 				<h2>Sign In</h2>
 				<form>

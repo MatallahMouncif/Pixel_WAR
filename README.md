@@ -5,8 +5,8 @@ Ce projet consiste à creer et mettre en place une application Pixel Art
 base de donnée Mongo.
 <br><br>
 L'objectif est de creer une application fiable, avec une architecture
-de transfère de donnée coherente ainsi qu'une gestion de compte utilisateur
-et de droit d'acces.
+de transfère de données cohérente ainsi qu'une gestion de compte utilisateur
+et de droit d'accès.
 <br><br>
 En effet, un visiteur peut uniquement visualiser les pixelboards.<br>
 Un utilisateur authentifié peut modifier un pixelboard.
@@ -32,7 +32,7 @@ Listening ports:
 
 Version de React : 18.2.0
 
-NodeJS : 16
+NodeJS : ^16
 
 NPM : ^8.13.2
 
@@ -47,10 +47,35 @@ Git : version non pertinente
 - Deployment: docker-compose / Dockerfiles 
 
 ## Quentin Bertramo
--
+- Backend:
+  - Services
+  - Routes
+  - Models
+  - Middlewares
+  (Sauf auth et add pixel)
+- Frontend: Gestion du profil utilisateur
+- Postman
 
 ## Djalil Moussa
--
-
+- Frontend : 
+  - Home (Affichage des PixelBoard)
+  - PixelBoard Editor
+  - HomeNavBar
+  - App (Router)
+  - Gestions des roles
+  - Export PNG
+  - Ajout d'un Pixel (avec vérification de la posibilité) 
+- Backend : 
+  - Passport auth
+  - Add Pixel (avec l'option override)
+  
 ## Mouncif Matallah
--
+- Frontend : 
+	- SignIn
+	- SignUp
+	- Users
+	- PixelBoardCreator
+	- HomeNavBar (add SignIn, SignUp), Profile (add PixelBoardCreator)
+	- App (Router)
+- Backend : 
+	- Creation Pixel Board

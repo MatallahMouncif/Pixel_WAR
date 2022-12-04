@@ -1,0 +1,682 @@
+{
+	"info": {
+		"_postman_id": "7184c99d-fa39-4766-a1f9-4c5d12e7394e",
+		"name": "Backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24706467"
+	},
+	"item": [
+		{
+			"name": "Pixelboards",
+			"item": [
+				{
+					"name": "Get all pixelboards",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3003/pixelboards/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"pixelboards",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Count pixelboards",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3003/pixelboards/count",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"pixelboards",
+								"count"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get one pixelboard",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3003/pixelboards/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"pixelboards",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "638284c21facc5e83f6a4b53"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get remaining time for a pixelboard",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3003/pixelboards/:id/remaing-time",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"pixelboards",
+								":id",
+								"remaing-time"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "638284c21facc5e83f6a4b52"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get my pixelboards",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3003/pixelboards/author/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"pixelboards",
+								"author",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "638284d2161bd03c63542974"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a pixelboard",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Test pixelboard\",\n    \"status\": \"In progress\",\n    \"creation_date\": 1669500083,\n    \"end_date\": null,\n    \"size\":50,\n    \"override_available\": true,\n    \"user_delay\": 100000,\n    \"author_id\": \"6381f86a0b97d94c06e11159\",\n    \"thumbnail\": \"thumbnail\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3003/pixelboards/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"pixelboards",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put a pixelboard",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Updated pixelboard\",\n    \"status\": \"In progress\",\n    \"end_date\": null,\n    \"size\":100,\n    \"override_available\": true,\n    \"user_delay\": 20000,\n    \"thumbnail\": \"thumbnail\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3003/pixelboards/:id/put",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"pixelboards",
+								":id",
+								"put"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "638284c21facc5e83f6a4b52"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch a pixelboard",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"thumbnail\": \"test_thumbnail\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3003/pixelboards/:id/patch",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"pixelboards",
+								":id",
+								"patch"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "638284c21facc5e83f6a4b52"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a pixelboard",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3003/pixelboards/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"pixelboards",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "638ba7fccd5f9ffc639c5a32"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pixels",
+			"item": [
+				{
+					"name": "Get my pixels",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3003/pixels/author/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"pixels",
+								"author",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "638cd447bc9aa794f10cfcfd"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a pixel",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"last_update\": 1669459748406,\r\n    \"color\": \"#FF0104\",\r\n    \"x\": 34,\r\n    \"y\": 34,\r\n    \"author_id\":\"638284d2161bd03c63542973\",\r\n    \"pixel_board_id\": \"638bd1cf365ed11e6475882b\"\r\n}\r\n"
+						},
+						"url": {
+							"raw": "http://localhost:3003/pixels",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"pixels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a pixel",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"last_update\": 1669459748506,\r\n    \"color\": \"red\",\r\n    \"x\": 17,\r\n    \"y\": 17,\r\n    \"author_name\":\"New anonymous\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3003/pixels/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"pixels",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "638364f5e0e6f043797b9ea7"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get all users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3003/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Count users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3003/users/count",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"users",
+								"count"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get one user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3003/users/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "638cd447bc9aa794f10cfcfd"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user contributions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3003/users/:id/contributions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"users",
+								":id",
+								"contributions"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "638cd447bc9aa794f10cfcfd"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"created user\",\n    \"email\": \"createduser@gmail.com\",\n    \"password\": \"createduser\",\n    \"role\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3003/users/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"users",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a user",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"updated user\",\n    \"email\": \"updateduser@gmail.com\",\n    \"password\": \"updateduser\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3003/users/:id/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"users",
+								":id",
+								"update"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6382992bfddf9ac49c866466"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a user name",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"updated nameeee\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3003/users/:id/update/name",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"users",
+								":id",
+								"update",
+								"name"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "638ccb42e6fe8a2ecfd8e4f1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a user email",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"azerty@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3003/users/:id/update/email",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"users",
+								":id",
+								"update",
+								"email"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "638ccb42e6fe8a2ecfd8e4f1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3003/users/:id/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"users",
+								":id",
+								"delete"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6382992bfddf9ac49c866466"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SignIn",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"aaa@gmail.com\",\n    \"password\": \"aaa\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3003/sign-in",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3003",
+					"path": [
+						"sign-in"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SignUp",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"new2\",\n    \"email\": \"new2@gmail.com\",\n    \"password\": \"new2\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3003/sign-up",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3003",
+					"path": [
+						"sign-up"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
