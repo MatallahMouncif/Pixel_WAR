@@ -21,7 +21,7 @@ export default function SignIn() {
 	return (
 		<div className="sign-in-wrapper">
 			<div className="sign-in-inner">
-				<h2>Sign in</h2>
+				<h2>Sign In</h2>
 				<form>
 					<div>
 						<label className="form-label" htmlFor="email">Email</label>
@@ -48,12 +48,18 @@ export default function SignIn() {
 						/>
 					</div>
 					<br />
-					<div>
-						<button className="btn btn-primary btn-block mb-4" type="button" onClick={signIn}>Sign in</button>
+					<div style={{
+						display: 'flex',
+						justifyContent: 'center',
+						alignItems: 'center',
+						flexDirection: 'column',
+					}}
+					>
+						<button className="btn btn-primary btn-block mb-4 center" type="button" onClick={signIn}>Sign-In</button>
 					</div>
 
 					<div className="text-center">
-						<p>Not a member? <Link to="/sign-up">Sign up</Link></p>
+						<p>Not a member? <Link to="/sign-up">Sign Up</Link></p>
 					</div>
 				</form>
 			</div>

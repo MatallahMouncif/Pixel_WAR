@@ -18,7 +18,11 @@ function BoardEditor(props) {
 	let [currentCell, setCurrentCell] = useState(null);
 	let [selectedColor, setSelectedColor] = useState('#f44336');
 	let [pixels, setPixels] = useState(null);
-	let [redirect, setRedirect] = useState(false);
+	let [board, setBoard] = useState({
+		title: "fetching", creation_date: "", override_available: "", creation_date: "", end_date: "", status: "",
+		user_delay: "",
+		author_id: "", visitor_allowed: []
+	});
 	const navigate = useNavigate();
 
 
@@ -27,14 +31,16 @@ function BoardEditor(props) {
 		if (lastCell !== null)
 			fillCellWithColor(lastCell.cellX, lastCell.cellY, lastCell.color);
 		setSelectedColor(color.hex);
-		console.log(selectedColor);
 	}
 	useEffect(() => {
 		const canvas = document.getElementById('boardCanvas');
 		const grid = document.getElementById('grid');
 		const gridCtx = grid.getContext('2d');
 		axios.get('http://localhost:3003/pixelBoards/' + params.id).then((res) => {
-			console.log(res.data.size * 20);
+			let board = res.data;
+			board.creation_date = new Date(board.creation_date).toLocaleDateString('fr-FR');
+			board.end_date = new Date(board.end_date).toLocaleDateString('fr-FR');
+			setBoard(board);
 			canvas.width = res.data.size * 20;
 			canvas.height = res.data.size * 20;
 			const ctx = canvas.getContext('2d');
@@ -45,7 +51,6 @@ function BoardEditor(props) {
 			drawGrid(ctx, res.data.size * 20);
 			axios.get('http://localhost:3003/pixelboards/' + params.id + "/pixels").then((response) => {
 				setPixels(response.data);
-				console.log(response.data);
 				response.data.forEach(pixel => {
 					fillCellWithColor(pixel.x, pixel.y, pixel.color);
 				});
@@ -125,7 +130,10 @@ function BoardEditor(props) {
 	function updateBoard() {
 		const canvas = document.getElementById('boardCanvas');
 		const img = canvas.toDataURL('image/png');
-
+		if (currentCell === null) {
+			alert("Select a Pixel to update");
+			return;
+		}
 		axios(
 			{
 				method: 'post',
@@ -145,6 +153,7 @@ function BoardEditor(props) {
 				axios.patch('http://localhost:3003/pixelboards/' + params.id + "/patch", {
 					thumbnail: img
 				});
+				alert("Pixel Updated");
 				setEditMode(false)
 			}
 		}).catch((error) => {
@@ -156,40 +165,70 @@ function BoardEditor(props) {
 	}
 	return (
 		<>
-			<h2>PixelBoard #{params.id}</h2>
-			{editMode
-				? (
-					<>
-						<div className="boardEditor">
-							<p>&nbsp;</p>
-							<canvas id="grid" />
-							<canvas id="boardCanvas" onMouseDown={handleCanvasMousedown} />
+			<div style={{
+				display: "flex",
+				justifyContent: "space-evenly",
+				alignItems: "center",
+				flexDirection: "row",
+			}}>
+				<div>
+					<h2>PixelBoard : {board.title}</h2>
+					<div style={{
+						display: "flex",
+						justifyContent: "center",
+						alignItems: "center",
+						flexDirection: "column",
+					}}>
+						<p className="fs-4">Creation date : <strong>{board.creation_date}</strong></p>
+						<p className="fs-4">End date : <strong>{board.end_date}</strong></p>
+						<p className="fs-4">Size : <strong>{board.size}</strong></p>
+						<p className="fs-4">Visitor allowed : <strong>{board.visitor_allowed ? "Yes" : "No"}</strong></p>
+						<p className="fs-4">Cooldown : <strong>{Math.floor(board.user_delay / 1000)} S</strong></p>
+						<p className="fs-4">Replace Pixel : <strong>{board.override_available ? "Yes" : "No"}</strong></p>
 
-						</div>
-						<div className='pixelInfo'>
-							<label>Pick a color : &nbsp;</label>
-							<CirclePicker color={selectedColor} onChangeComplete={changeColor} id="colorPicker" />
-							<p id='cellX'></p>
-							<p id='cellY'></p>
-							<p id='cellColor'></p>
-							<button className="btn btn-success" type="button" onClick={updateBoard}>SAVE PIXEL</button>
-						</div>
+					</div>
+				</div>
+				<div>
+					{editMode
+						? (
+							<>
+								<div className="boardEditor">
+									<p>&nbsp;</p>
+									<canvas id="grid" />
+									<canvas id="boardCanvas" onMouseDown={handleCanvasMousedown} />
 
-					</>
-				)
-				: (
-					<>
-						<div className="boardEditor">
-							<p>&nbsp;</p>
-							<canvas id="grid" />
-							<canvas id="boardCanvas" />
+								</div>
+								<div className='pixelInfo'>
+									<label>Pick a color : &nbsp;</label>
+									<CirclePicker color={selectedColor} onChangeComplete={changeColor} id="colorPicker" />
+									<p id='cellX'></p>
+									<p id='cellY'></p>
+									<p id='cellColor'></p>
+									{sessionStorage.getItem("user_id") !== null ?
+										<button className="btn btn-success" type="button" onClick={updateBoard}>SAVE PIXEL</button> : <h2>Sign In to draw a pixel !</h2>}
 
-						</div>
-						<div className='pixelInfo'>
-							<button className="btn btn-success" style={{ margin: "15px" }} type="button" onClick={switchEditMode}>DRAW PIXEL</button>
-						</div>
-					</>
-				)}
+
+								</div>
+
+							</>
+						)
+						: (
+							<>
+								<div className="boardEditor">
+									<p>&nbsp;</p>
+									<canvas id="grid" />
+									<canvas id="boardCanvas" />
+
+								</div>
+								<div className='pixelInfo'>
+									{sessionStorage.getItem("user_id") !== null ?
+										<button className="btn btn-success" style={{ margin: "15px" }} type="button" onClick={switchEditMode}>DRAW PIXEL</button> : <h2>Sign In to draw a pixel !</h2>}
+								</div>
+							</>
+						)}
+				</div>
+			</div>
+
 		</>
 	);
 };
