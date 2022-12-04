@@ -65,7 +65,7 @@ const PixelBoards = () => {
 						</Link>
 						<div className="boarddesc">{board.title}</div>
 						<div className="boarddesc">Creation date : {new Date(board.creation_date).toLocaleString('fr-FR')}</div>
-						<div className="boarddesc">End date : {new Data(board.end_date).toLocaleString('fr-FR')}</div>
+						<div className="boarddesc">End date : {new Date(board.end_date).toLocaleString('fr-FR')}</div>
 						<div className="boarddesc">Status : {board.status}</div>
 						{sessionStorage.getItem('user_role') === '0'
 							? (
