@@ -17,16 +17,16 @@ export default function SignUp() {
 				name: pseudo,
 				email: email,
 				password: password,
-				role: 0,
+				role: 1,
 			},
 			withCredentials: true,
-		}).then((res) => { { navigate("/"); } });
+		}).then((res) => { { navigate("/sign-in"); } });
 	};
 
 	return (
 		<div className="sign-up-wrapper">
 			<div className="sign-up-inner">
-				<h2>Sign up</h2>
+				<h2>Sign Up</h2>
 				<form>
 					<div>
 						<label className="form-label" htmlFor="pseudo">Pseudo</label>
@@ -65,12 +65,17 @@ export default function SignUp() {
 						/>
 					</div>
 					<br />
-					<div>
+					<div style={{
+						display: "flex",
+						justifyContent: "center",
+						alignItems: "center",
+						flexDirection: "column",
+					}}>
 						<button className="btn btn-primary btn-block mb-4" type="button" onClick={signUp}>Sign up</button>
 					</div>
 
 					<div className="text-center">
-						<p>Already a member? <Link to="/sign-in">Sign in</Link></p>
+						<p>Already a member? <Link to="/sign-in">Sign In</Link></p>
 					</div>
 				</form>
 			</div>

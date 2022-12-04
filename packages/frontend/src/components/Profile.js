@@ -42,6 +42,7 @@ export default function Profile() {
 						name="name"
 						onChange={(e) => setName(e.target.value)}
 						type="text"
+						style={{ width: '20%' }}
 						placeholder={sessionStorage.getItem('user_name')}
 						required
 					/>
@@ -54,6 +55,7 @@ export default function Profile() {
 						name="email"
 						onChange={(e) => setEmail(e.target.value)}
 						type="email"
+						style={{ width: '20%' }}
 						placeholder={sessionStorage.getItem('user_email')}
 						required
 					/>
@@ -65,6 +67,7 @@ export default function Profile() {
 						className="form-control"
 						name="password"
 						onChange={(e) => setPassword(e.target.value)}
+						style={{ width: '20%' }}
 						type="password"
 						placeholder="new password"
 						required
@@ -73,10 +76,17 @@ export default function Profile() {
 				</div>
 			</div>
 			<div>
-				<div className="badge bg-primary text-wrap" style={{ width: `${14}rem` }}>
-					Total number of pixels placed: {myPixels}
+				<div style={{
+					display: 'flex',
+					justifyContent: 'center',
+					alignItems: 'center',
+					flexDirection: 'column',
+				}}
+				>
+					<div className="badge bg-primary text-wrap" style={{ width: `${26}rem` }}>
+						<p style={{ textAlign: 'center' }} className="fs-4">Total number of pixels placed: {myPixels}</p>
+					</div>
 				</div>
-
 				<div className="pixelBoardsGallery">
 					{myPixelboards && myPixelboards.map((pixelboard) => (
 						<div className="boards-container" key={pixelboard._id}>

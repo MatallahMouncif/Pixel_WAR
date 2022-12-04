@@ -13,7 +13,7 @@
 
 
 .boards-container{
-    border: 1px solid #ccc;
+    border: 1px solid rgb(21, 255, 0);
     width: 300px;
 }
 .boards-container:hover {

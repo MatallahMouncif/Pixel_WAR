@@ -30,25 +30,32 @@ const PixelBoards = () => {
 	}, []);
 	return (
 		<>
-			<div className="badge bg-primary text-wrap" style={{ width: 14 + "rem" }}>
-				Total of users registred : {totalUsers}
-			</div>
-			<br></br>
-			<div className="badge bg-primary text-wrap" style={{ width: 14 + "rem" }}>
-				Total of Pixel Boards created : {totalPixelBoards}
+			<div style={{
+				display: "flex",
+				justifyContent: "center",
+				alignItems: "center",
+				flexDirection: "column",
+			}}>
+				<div className="badge bg-primary text-wrap" style={{ width: 20 + "rem" }}>
+					<p style={{ textAlign: "center" }} className="fs-4">Total of users registred : {totalUsers}</p>
+				</div>
+				<br></br>
+				<div className="badge bg-primary text-wrap" style={{ width: 25 + "rem" }}>
+					<p style={{ textAlign: "center" }} className="fs-4">Total of Pixel Boards created : {totalPixelBoards}</p>
+				</div>
 			</div>
 			<div className="pixelBoardsGallery">
 
 				{boards && boards.map((board) => (
-					<div className='boards-container' key={board._id}>
+					<div className={'boards-container'} key={board._id} style={board.status == "in Progress" ? { border: "1px solid green" } : { border: "1px solid red" }}>
 						<Link to={{
 							pathname: "/pixelBoards/" + board._id,
 							id: board._id
 						}}>
-							<img src={board.thumbnail}></img>
+							<img src={board.thumbnail} style={board.status == "in Progress" ? { border: "3px solid green" } : { border: "3px solid red" }}></img>
 						</Link>
 						<div className='boarddesc'>{board.title}</div>
-						<div className='boarddesc'>Creation date : {board.creation_date.toString()}</div>
+						<div className='boarddesc'>Creation date : {board.creation_date}</div>
 						<div className='boarddesc'>End date : {board.end_date}</div>
 						<div className='boarddesc'>Status : {board.status}</div>
 					</div>

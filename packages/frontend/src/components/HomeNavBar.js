@@ -10,7 +10,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { func } from 'prop-types';
 
 function HomeNavBar(props) {
 	const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
@@ -33,7 +32,7 @@ function HomeNavBar(props) {
 			withCredentials: true,
 			url: 'http://localhost:3003/users/logout',
 		}).then((res) => {
-			sessionStorage.removeItem('user');
+			sessionStorage.clear();
 			window.location.href = '/';
 		}
 		).catch((err) => {
@@ -46,8 +45,8 @@ function HomeNavBar(props) {
 		if (!props.user) {
 			return (
 				<ButtonGroup>
-					<Button variant={theme} as={Link} to="/sign-in">Login</Button>
-					<Button variant={theme} as={Link} to="/sign-up">Signup</Button>
+					<Button variant={theme} as={Link} to="/sign-in">Sign-In</Button>
+					<Button variant={theme} as={Link} to="/sign-up">Sign-Up</Button>
 				</ButtonGroup>
 			)
 		} else {
@@ -68,17 +67,8 @@ function HomeNavBar(props) {
 				<Navbar.Collapse id="basic-navbar-nav">
 					<Nav className="me-auto">
 						<Nav.Link href="/">Home</Nav.Link>
-						<NavDropdown title="Profile" id="basic-nav-dropdown">
-							<NavDropdown.Item href="#action/3.1">
-								Settings
-							</NavDropdown.Item>
-							<NavDropdown.Item href="/user">
-								Create new board
-							</NavDropdown.Item>
-							<NavDropdown.Item href="/createBoard">
-								Logout
-							</NavDropdown.Item>
-						</NavDropdown>
+						{sessionStorage.getItem('user_role') == 0 ?
+							<Nav.Link href="/user/createPixelBoard">Create PixelBoard</Nav.Link> : null}
 					</Nav>
 					<div className='mx-3'>
 						{authButton()}
