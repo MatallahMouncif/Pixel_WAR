@@ -76,4 +76,4 @@ Git : version non pertinente
 	- HomeNavBar (add SignIn, SignUp), Profile (add PixelBoardCreator)
 	- App (Router)
 - Backend : 
-	- CreatePixelBoard
+	- Creation Pixel Board
