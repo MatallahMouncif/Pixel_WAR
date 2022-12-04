@@ -11,7 +11,6 @@ export default function PixelBoard() {
 	const [epixel, setEpixel] = useState();
 	const [time, setTime] = useState();
 	const [endDate, setEtime] = useState();
-	const [visitor, setVisitor] = useState();
 	useEffect(() => {
 		setAuthor(sessionStorage.getItem('user_id'));
 	}, []);
@@ -32,14 +31,15 @@ export default function PixelBoard() {
 					end_date: endDate,
 					author_id: author,
 					override_available: epixel,
-					visitor_allowed: visitor,
 					user_delay: time * 1000,
 				},
-			}).then((res) => {
-				console.log(res);
-			}).catch((err) => {
-				console.log(err);
-			});
+			})
+				.then((res) => {
+					console.log(res);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
 		}
 	}
 
@@ -105,43 +105,6 @@ export default function PixelBoard() {
 									id="exampleRadios2"
 									value="false"
 									onChange={(e) => setEpixel(e.target.value)}
-								/>
-								<label
-									className="form-check-label"
-									htmlFor="exampleRadios2"
-								>
-									No
-								</label>
-							</div>
-						</div>
-						<label className="form-label" htmlFor="visitor">
-							Visitor allowed
-						</label>
-						<div className="d-flex justify-content-around">
-							<div className="form-check">
-								<input
-									className="form-check-input"
-									type="radio"
-									name="exampleRadios"
-									id="exampleRadios1"
-									value="true"
-									onChange={(e) => setVisitor(e.target.value)}
-								/>
-								<label
-									className="form-check-label"
-									htmlFor="exampleRadios1"
-								>
-									Yes
-								</label>
-							</div>
-							<div className="form-check">
-								<input
-									className="form-check-input"
-									type="radio"
-									name="exampleRadios"
-									id="exampleRadios2"
-									value="false"
-									onChange={(e) => setVisitor(e.target.value)}
 								/>
 								<label
 									className="form-check-label"
