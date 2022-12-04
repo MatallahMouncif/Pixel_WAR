@@ -34,10 +34,6 @@ const pixelboardSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	visitor_allowed: {
-		type: Boolean,
-		required: true,
-	},
 	thumbnail: {
 		type: String,
 		required: false,

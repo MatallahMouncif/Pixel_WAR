@@ -78,7 +78,7 @@ function HomeNavBar(props) {
 				<Navbar.Collapse id="basic-navbar-nav">
 					<Nav className="me-auto">
 						<Nav.Link href="/">Home</Nav.Link>
-						{sessionStorage.getItem('user_role') === 0 ? (
+						{sessionStorage.getItem('user_role') === '0' ? (
 							<Nav.Link href="/user/createPixelBoard">
 								Create PixelBoard
 							</Nav.Link>

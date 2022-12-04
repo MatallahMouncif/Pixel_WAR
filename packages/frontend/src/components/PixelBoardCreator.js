@@ -35,6 +35,7 @@ export default function PixelBoard() {
 				},
 			})
 				.then((res) => {
+					window.location.href = '/';
 					console.log(res);
 				})
 				.catch((err) => {
