@@ -65,6 +65,7 @@ const createPixel = (pixel) => new Promise((resolve, reject) => {
 									const update = {
 										color: pixel.color,
 										last_update: pixel.last_update,
+										author_id: pixel.author_id,
 									};
 									Pixel.findOneAndUpdate(
 										filter,
