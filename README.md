@@ -71,8 +71,8 @@ Git : version non pertinente
 	- SignUp
 	- Users
 	- PixelBoardCreator
-	- HomeNavBar (add SignIn, SignUp)
-	- Profile (add PixelBoardCreator)
+	- HomeNavBar (Integrate SignIn, SignUp)
+	- Profile (Integrate PixelBoardCreator)
 	- App (Router)
 - Backend : 
 	- Gestion Pixel Board Creator
