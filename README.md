@@ -68,4 +68,12 @@ Git : version non pertinente
   - Add Pixel (avec l'option override)
   
 ## Mouncif Matallah
--
+- Frontend : 
+	- SignIn
+	- SignUp
+	- Users
+	- PixelBoardCreator
+	- HomeNavBar (add SignIn, SignUp), Profile (add PixelBoardCreator)
+	- App (Router)
+- Backend : 
+	- CreatePixelBoard
