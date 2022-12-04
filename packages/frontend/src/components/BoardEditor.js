@@ -145,10 +145,13 @@ function BoardEditor(props) {
 				axios.patch('http://localhost:3003/pixelboards/' + params.id + "/patch", {
 					thumbnail: img
 				});
+				setEditMode(false)
 			}
-			setEditMode(false)
 		}).catch((error) => {
-			console.log(error);
+			alert("Cant draw yet ;)");
+			window.location.reload();
+			setEditMode(false)
+
 		});
 	}
 	return (
