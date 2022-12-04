@@ -57,8 +57,15 @@ Git : version non pertinente
 - Postman
 
 ## Djalil Moussa
-- Frontend : Home (PixelBoards), PixelBoard Editor, HomeNavBar, App (Router), Gestions des roles
-- Backend : Passport auth, Add Pixel (avec l'option override)
-
+- Frontend : 
+  - Home (PixelBoards)
+  - PixelBoard Editor
+  - HomeNavBar
+  - App (Router)
+  - Gestions des roles
+- Backend : 
+  - Passport auth
+  - Add Pixel (avec l'option override)
+  
 ## Mouncif Matallah
 -
