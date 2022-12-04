@@ -17,17 +17,20 @@ const checkCooldown = (pid, aid, lastUpdate, cooldown) => new Promise((resolve, 
 		author_id: aid,
 	};
 	Pixel.find(filter).sort({ last_update: -1 }).then((lastPixel) => {
-		if (lastPixel.length === 0) {
+		if (!lastPixel || lastPixel.length == 0 || lastPixel.includes(undefined)) {
 			resolve(false)
 		}
-		const lastPixelUpdate = lastPixel[0].last_update;
-		console.log(lastPixelUpdate, lastUpdate, cooldown);
-		console.log(lastUpdate - lastPixelUpdate > cooldown);
-		if (lastUpdate - lastPixelUpdate > cooldown) {
-			resolve(false);
+		else {
+			const lastPixelUpdate = lastPixel[0].last_update;
+			console.log(lastPixelUpdate, lastUpdate, cooldown);
+			console.log(lastUpdate - lastPixelUpdate > cooldown);
+			if (lastUpdate - lastPixelUpdate > cooldown) {
+				resolve(false);
+			}
+			else
+				resolve(true);
 		}
-		else
-			resolve(true);
+
 	});
 }
 );
