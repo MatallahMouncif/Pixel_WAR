@@ -31,20 +31,6 @@ router.get('/:id',
 		res.send(pixelboard);
 	});
 
-router.get('/in-progress',
-	async (req, res) => {
-		const pixelboards = await pixelboardService.getInProgressPixelboards();
-
-		res.send(pixelboards);
-	});
-
-router.get('/finished',
-	async (req, res) => {
-		const pixelboards = await pixelboardService.getFinishedPixelboards();
-
-		res.send(pixelboards);
-	});
-
 router.get('/:id/remaing-time',
 	async (req, res) => {
 		const remainingTime = await pixelboardService.getRemainingTime(req.params.id);
