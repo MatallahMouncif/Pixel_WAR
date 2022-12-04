@@ -1,0 +1,30 @@
+
+.pixelBoardsGallery{
+    display: flex;
+    flex-wrap: wrap;
+    flex-basis: 20%;
+    justify-content: center;
+    gap: 100px;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+}
+
+
+
+.boards-container{
+    border: 1px solid rgb(21, 255, 0);
+    width: 300px;
+}
+.boards-container:hover {
+    border: 1px solid #777;
+}
+
+.boards-container img {
+    width: 300px;
+    height: 300px;
+}
+.boarddesc {
+    padding: 15px;
+    text-align: center;
+}

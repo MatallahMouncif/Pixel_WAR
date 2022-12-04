@@ -1,0 +1,4 @@
+[
+	{"_id":{"$oid":"638284c21facc5e83f6a4b51"},"title":"Beautiful board !","status":"in Progress","creation_date":{"$numberLong":"1670099866000"},"end_date":{"$numberLong":"1701722266000"},"size":30,"override_available":true,"user_delay":5000,"author_id":"638284d2161bd03c63542973"},
+	{"_id":{"$oid":"638284c21facc5e83f6a4b52"},"title":"Another board","status":"finished","creation_date":{"$numberLong":"1664829466000"},"end_date":{"$numberLong":"1667507866000"},"size":30,"override_available":false,"user_delay":1000,"author_id":"638284d2161bd03c63542973"}
+]

@@ -7,17 +7,20 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start:frontend": "npm run start -w frontend",
-    "start:backend": "npm run start -w backend"
+    "start:backend": "npm run start -w backend",
+    "start:frontend": "npm run start -w frontend"
   },
   "workspaces": [
     "./packages/*"
   ],
   "devDependencies": {
-    "eslint": "^8.20.0",
+    "eslint": "^8.28.0",
     "eslint-config-53js": "^2.0.0",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-react": "7.31.10",
     "eslint-plugin-react-hooks": "^4.1.2"
+  },
+  "dependencies": {
+    "bootstrap4-toggle": "^3.6.1"
   }
 }

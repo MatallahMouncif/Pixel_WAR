@@ -1,0 +1,6 @@
+[
+	{"_id":{"$oid":"638284caf314c362edd79166"},"last_update":{"$numberLong":"1670190121000"},"color":"#ffeb3b","x":2,"y":10,"author_id":"638284d2161bd03c63542973","pixel_board_id":"638284c21facc5e83f6a4b51"},
+	{"_id":{"$oid":"638284caf314c362edd79167"},"last_update":{"$numberLong":"1670186521000"},"color":"#2196f3","x":14,"y":16,"author_id":"638284d2161bd03c63542974","pixel_board_id":"638284c21facc5e83f6a4b51"},
+	{"_id":{"$oid":"638284caf314c362edd79168"},"last_update":{"$numberLong":"1667338921000"},"color":"#00bcd4","x":5,"y":12,"author_id":"638284d2161bd03c63542973","pixel_board_id":"638284c21facc5e83f6a4b52"},
+	{"_id":{"$oid":"638284caf314c362edd79169"},"last_update":{"$numberLong":"1667425321000"},"color":"#ffeb3b","x":3,"y":9,"author_id":"638284d2161bd03c63542974","pixel_board_id":"638284c21facc5e83f6a4b52"}
+]
