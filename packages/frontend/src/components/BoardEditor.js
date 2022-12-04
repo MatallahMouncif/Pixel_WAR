@@ -1,14 +1,15 @@
 /* eslint-disable */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import '../styles/BoardEditor.css';
 import { useParams, useNavigate } from 'react-router-dom';
 import 'toolcool-color-picker';
 import 'bootstrap';
 import axios from 'axios';
 import { CirclePicker } from 'react-color';
-import { func } from 'prop-types';
+import { exportComponentAsPNG } from 'react-component-export-image';
 function BoardEditor(props) {
 	const params = useParams();
+	const panelRef = useRef();
 	const [panelWidth, setPanelWidth] = useState(0);
 	const [panelHeight, setPanelHeight] = useState(0);
 	const [cellSideNumber, setCellSideNumber] = useState(0);
@@ -127,6 +128,7 @@ function BoardEditor(props) {
 		const cellY = Math.floor(y / cellSize);
 		fillCell(cellX, cellY, e);
 	}
+
 	function updateBoard() {
 		const canvas = document.getElementById('boardCanvas');
 		const img = canvas.toDataURL('image/png');
@@ -195,7 +197,7 @@ function BoardEditor(props) {
 								<div className="boardEditor">
 									<p>&nbsp;</p>
 									<canvas id="grid" />
-									<canvas id="boardCanvas" onMouseDown={handleCanvasMousedown} />
+									<canvas id="boardCanvas" onMouseDown={handleCanvasMousedown} ref={panelRef} />
 
 								</div>
 								<div className='pixelInfo'>
@@ -206,6 +208,7 @@ function BoardEditor(props) {
 									<p id='cellColor'></p>
 									{sessionStorage.getItem("user_id") !== null ?
 										<button className="btn btn-success" type="button" onClick={updateBoard}>SAVE PIXEL</button> : <h2>Sign In to draw a pixel !</h2>}
+									<button className="btn btn-success" type="button" onClick={() => exportComponentAsPNG(panelRef)}>EXPORT TO PNG</button>
 
 
 								</div>
@@ -217,13 +220,15 @@ function BoardEditor(props) {
 								<div className="boardEditor">
 									<p>&nbsp;</p>
 									<canvas id="grid" />
-									<canvas id="boardCanvas" />
+									<canvas id="boardCanvas" ref={panelRef} />
 
 								</div>
 								<div className='pixelInfo'>
 									{sessionStorage.getItem("user_id") !== null ?
 										<button className="btn btn-success" style={{ margin: "15px" }} type="button" onClick={switchEditMode}>DRAW PIXEL</button> : <h2>Sign In to draw a pixel !</h2>}
+									<button className="btn btn-success" type="button" onClick={() => exportComponentAsPNG(panelRef)}>Export to PNG</button>
 								</div>
+
 							</>
 						)}
 				</div>

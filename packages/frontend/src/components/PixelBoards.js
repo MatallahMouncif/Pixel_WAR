@@ -11,6 +11,7 @@ const PixelBoards = () => {
 	const [totalUsers, setTotalUsers] = useState(0);
 	const [totalPixelBoards, setTotalPixelBoards] = useState(0);
 	const params = useParams();
+
 	useEffect(() => {
 		axios.get('http://localhost:3003/pixelboards/').then((res) => {
 			setBoards(res.data);
