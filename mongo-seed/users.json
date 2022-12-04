@@ -1,6 +1,4 @@
 [
-	{"_id":{"$oid":"638284d2161bd03c63542972"},"name":"Mouncif Matallah","email":"mouncif@gmail.com","password":"password","role":1},
-	{"_id":{"$oid":"638284d2161bd03c63542973"},"name":"admin","email":"admin@gmail.com","password":"admin","role":0},
-	{"_id":{"$oid":"638284d2161bd03c63542974"},"name":"Anthony Malvesin","email":"anthony@gmail.com","password":"password","role":0},
-	{"_id":{"$oid":"638284d2161bd03c63542975"},"name":"Quentin Bertramo","email":"quentin@gmail.com","password":"password","role":1}
+	{"_id":{"$oid":"638284d2161bd03c63542973"},"name":"Admin","email":"admin@gmail.com","password":"$2a$08$5MPOyIM2jW4ITk7BGMXnl.06oH9SxPS74aSDlmQO9i1iyrdgorRJi","role":0},
+	{"_id":{"$oid":"638284d2161bd03c63542974"},"name":"User","email":"user@gmail.com","password":"$2a$08$ca.vkJDdoOWqFFCMKMFRM.VwEIjsnNIjEQ435ctA5gcs8qQuZka8G","role":1}
 ]
