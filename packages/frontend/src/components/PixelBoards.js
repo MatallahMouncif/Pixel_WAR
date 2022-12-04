@@ -37,6 +37,7 @@ const PixelBoards = () => {
 	return (
 		<>
 			<div style={{
+				marginTop: '50px',
 				display: 'flex',
 				justifyContent: 'center',
 				alignItems: 'center',

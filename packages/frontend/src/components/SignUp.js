@@ -35,7 +35,7 @@ export default function SignUp() {
 	};
 
 	return (
-		<div className="sign-up-wrapper">
+		<div className="sign-up-wrapper mt-5">
 			<div className="sign-up-inner">
 				<h2>Sign Up</h2>
 				<form>
